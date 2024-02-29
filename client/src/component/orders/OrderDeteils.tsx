@@ -15,6 +15,7 @@ import leftArrow from "../../svg/leftArrow.svg";
 import MoreDetailOrder from "./MoreDetailOrder";
 import { Order_Key } from "../intarface/ArrayOfProject";
 import AddNewOrder from "./addNewOrder";
+import axios from "axios";
 
 const OrderDeteils = ({
   setOpenAddNewOrder,
@@ -28,7 +29,14 @@ const OrderDeteils = ({
     openIndex: 0,
   });
   const [allOrders, setAllOrders] = useState<OrderIProps[]>(tempArray);
+  // useEffect(()=>{
+  // const url="http://localhost:3001/api/sendData"
+  // axios.get(url).then(({data})=>{
+  // console.log(data);
+  // setAllOrders(data.results)
 
+  // })
+  // },[])
   const handleRowClick = (order: OrderIProps, index: number) => {
     setShowMoreDetail({
       ...showMoreDatail,

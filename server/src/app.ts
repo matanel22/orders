@@ -1,10 +1,9 @@
 
-// require ('./db/connectMongo')
-
-// import  router  from './routes';
 import express from 'express';
 import cors from "cors";
 import { Request,Response } from 'express';
+import router from './routes';
+
 const app = express();
 
 app.use(express.json());
@@ -17,12 +16,12 @@ const corsOption = {
 };
 
 app.use(cors(corsOption)); 
-// app.use('/api/routs/router',router);
-// app.use('/api',router);
+
+app.use('/api',router);
 
 
 app.get("/",(req:Request,res:Response)=>{
-  console.log("11111111");
+  
   res.send("is great")
 })
 app.listen(3001, () => {
