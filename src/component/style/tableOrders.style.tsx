@@ -107,4 +107,3 @@ export const SearchOrder = styled.input`
   border: 1px solid rgba(0, 128, 0, 0.3);
 `;
 export const ButtonArrow = styled.img``;
-//"rgba(255, 255, 255, 1)"
