@@ -102,6 +102,7 @@ const AddNewOrder = ({
             );
           })}
           <ButtonLoading
+            type="button"
             setOpen={setOpen}
             textButton="הוספת הזמנה"
           ></ButtonLoading>

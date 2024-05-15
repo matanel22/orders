@@ -8,7 +8,11 @@ import {
 } from "@mui/material";
 import TableRow from "@mui/material/TableRow";
 import jsonData from "../jsonData/data.json";
-import { ButtonArrow, Container } from "../style/tableOrders.style";
+import {
+  ButtonArrow,
+  Container,
+  DefultContainer,
+} from "../style/tableOrders.style";
 import { IPropsAdddNewOrder, OrderIProps } from "../intarface";
 import leftArrow from "../../svg/leftArrow.svg";
 
@@ -16,6 +20,8 @@ import MoreDetailOrder from "./MoreDetailOrder";
 import { Order_Key } from "../intarface/ArrayOfProject";
 import AddNewOrder from "./addNewOrder";
 import axios from "axios";
+import Card from "../Cards";
+import { DefaultContainer } from "../../defultContainer";
 
 const OrderDeteils = ({
   setOpenAddNewOrder,
@@ -46,15 +52,15 @@ const OrderDeteils = ({
   };
 
   return (
-    <Container>
-      {openAddNewOrder && (
+    <div>
+      {/* {openAddNewOrder && (
         <AddNewOrder
           setOpenAddNewOrder={setOpenAddNewOrder}
           allOrders={allOrders}
           setAllOrders={setAllOrders}
         />
-      )}
-      <TableContainer
+      )} */}
+      {/* <TableContainer
         sx={{
           direction: "rtl",
         }}
@@ -77,8 +83,10 @@ const OrderDeteils = ({
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {allOrders.map((order, index: number) => (
+          <TableBody> */}
+      <Card items={allOrders}></Card>
+
+      {/* {allOrders.map((order, index: number) => (
               <TableRow
                 key={order.id}
                 onClick={() => handleRowClick(order, index)}
@@ -131,11 +139,11 @@ const OrderDeteils = ({
                   ></MoreDetailOrder>
                 )}
               </TableRow>
-            ))}
-          </TableBody>
+            ))} */}
+      {/* </TableBody>
         </Table>
-      </TableContainer>
-    </Container>
+      </TableContainer> */}
+    </div>
   );
 };
 

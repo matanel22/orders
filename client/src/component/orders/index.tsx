@@ -8,13 +8,15 @@ import {
   HeaderWarper,
   SearchOrder,
 } from "../style/tableOrders.style";
+import Card from "../Cards";
+import { DefaultContainer } from "../../defultContainer";
 
 const AllOrders = () => {
   const [openAddNewOrder, setOpenAddNewOrder] = useState(false);
 
   return (
-    <DefultContainer>
-      <HeaderWarper>
+    <DefaultContainer background={true}>
+      {/* <HeaderWarper>
         <ButtonUi
           onClick={() => {
             setOpenAddNewOrder(true);
@@ -23,13 +25,12 @@ const AllOrders = () => {
           הזמנה חדשה
         </ButtonUi>
         <SearchOrder placeholder="חיפוש" type="text" />
-      </HeaderWarper>
+      </HeaderWarper> */}
       <OrderDeteils
         openAddNewOrder={openAddNewOrder}
         setOpenAddNewOrder={setOpenAddNewOrder}
       />
-      ;
-    </DefultContainer>
+    </DefaultContainer>
   );
 };
 

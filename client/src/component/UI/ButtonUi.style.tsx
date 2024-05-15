@@ -9,6 +9,7 @@ const spin = keyframes`
 // Define props type for the Button component
 interface ButtonProps {
   isLoading: boolean;
+  type: string;
 }
 
 // Styled button component

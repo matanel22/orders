@@ -15,16 +15,16 @@ export const Card = styled.div`
   width: 200px;
 `;
 export const Container = styled.div`
-  padding: 10px;
-  margin-right: 15%;
-  margin-left: 15%;
-  box-shadow: 10px 5px 5px rgba(0, 128, 0, 0.3);
-  ${css`
-    @media (max-width: 768px) {
-      padding: 5px;
-      width: 100%;
-      overflow: hidden;
-    }
+  // padding: 10px;
+  // margin-right: 15%;
+  // margin-left: 15%;
+  // box-shadow: 10px 5px 5px rgba(0, 128, 0, 0.3);
+  // ${css`
+    //   @media (max-width: 768px) {
+    //     padding: 5px;
+    //     width: 100%;
+    //     overflow: hidden;
+    //   }
   `}
 `;
 export const HeaderWarper = styled.div`
@@ -107,3 +107,23 @@ export const SearchOrder = styled.input`
   border: 1px solid rgba(0, 128, 0, 0.3);
 `;
 export const ButtonArrow = styled.img``;
+export const CardContainer = styled.div`
+  /* Adjust as needed */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  // direction: rtl;
+  margin: 20px auto;
+  border: groove;
+  width: 70%;
+`;
+
+export const CardTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 10px;
+`;
+
+export const CardContent = styled.p`
+  font-size: 16px;
+`;

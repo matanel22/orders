@@ -5,10 +5,18 @@ import { Button } from "./ButtonUi.style";
 // Define keyframes for the loading animation
 
 interface IPropsButton {
-  textButton: string;
-  setOpen: Dispatch<React.SetStateAction<boolean>>;
+  textButton?: string;
+  type: string;
+
+  setOpen?: Dispatch<React.SetStateAction<boolean>>;
+  onClick?: () => void;
 }
-const ButtonLoading = ({ textButton, setOpen }: IPropsButton) => {
+const ButtonLoading = ({
+  textButton,
+  setOpen,
+  type,
+  onClick,
+}: IPropsButton) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -21,7 +29,7 @@ const ButtonLoading = ({ textButton, setOpen }: IPropsButton) => {
 
   return (
     <div>
-      <Button type="submit" isLoading={isLoading} onClick={handleClick}>
+      <Button type={type} isLoading={isLoading} onClick={onClick}>
         {isLoading ? "Loading..." : textButton}
       </Button>
     </div>
