@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { CardContainer } from "../style/tableOrders.style";
+import { FormInputs, FormOptions } from "../formIndex/hookController";
+import DeteilsCard from "./DetailsCard";
 
-interface ArrayComponentProps<T> {
-  items: T[];
+export interface ArrayComponentProps<T> {
+  items?: T[];
+  options: FormInputs[];
+  state?: Dispatch<React.SetStateAction<T[]>>;
   image?: File;
 }
 
 const Card = <T extends Record<string, any>>({
-  items,
+  options,
   image,
 }: ArrayComponentProps<T>) => {
   const [show, setShow] = useState(false);
   return (
     <div style={{ width: "100vw", maxWidth: "400px" }}>
-      {items.map((item, index) => (
-        <CardContainer key={item.id}>
-          {Object.values(item).join(" ")}
-        </CardContainer>
+      {options.map((opt, index) => (
+        <DeteilsCard
+          id={opt.id}
+          name={opt.name}
+          eventType={opt.eventType}
+          locationType={opt.locationType}
+          statusId={opt.statusId}
+          items={opt.items}
+        />
       ))}
     </div>
   );

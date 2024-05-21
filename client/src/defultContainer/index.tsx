@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Header } from "../component/header";
+import SearchComponent from "../component/header/search";
 
 interface IProps {
   children: React.ReactNode;

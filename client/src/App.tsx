@@ -1,16 +1,18 @@
+// App.jsx
 import React from "react";
-
-import "./App.css";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AllOrders from "./component/orders";
+import Card from "./component/Cards";
+import Test from "./component/Test";
 
 function App() {
   return (
-    <div className="App">
-      <AllOrders />
-      {/* <AllOrders /> */}
-      {/* <AppForm /> */}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AllOrders />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm, Controller, useController } from "react-hook-form";
 
-import { Error } from "./Error";
 interface IProps {
   control: any;
   name: string;

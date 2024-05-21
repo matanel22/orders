@@ -1,52 +1,48 @@
-import React, { useEffect, useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
-import Input from "./input/Input";
-import ArrayInput from "./input/ArrayInput";
-import SelectOpt from "./input/SelectOpt";
+import React, { Dispatch, useEffect, useState } from "react";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+
+// import SelectOpt from "./input/SelectOpt";
 import { DefaultContainer } from "../../../defultContainer";
 import { FormContainer, SubmitButton } from "./style.index";
-import { required } from "../../validates";
+import { isInt, required } from "../../validates";
+import { TextField } from "../fieldsTevel";
 
-interface FormInputs {
-  id: string;
-  firstName: string;
-  eventType: string;
-  loctionType: string;
-  items: { name: string; amount: number }[];
-  statusId: { id: string; name: string };
-}
-interface IPropsItems {
+import DynamicSelectFields from "../fieldsTevel/SelectHf";
+import { SelectField } from "../fieldsTevel/SelectOpt";
+
+export interface FormInputs {
   id: string;
   name: string;
-  eventTypeId: string;
-  loctionTypeId: string;
-  comments: string;
+  eventType: string;
+  locationType: string;
+  items: { id: string; name: string; amount: number }[];
+  statusId: { id: string; name: string };
+}
+export interface FormOptions {
+  options: FormInputs[];
+  setOptions: Dispatch<React.SetStateAction<FormInputs[]>>;
+}
+export interface IPropsItems {
+  id: string;
+  name: string;
+  eventTypeId?: string;
+  loctionTypeId?: string;
+  comments?: string;
   orderTime?: Date;
 }
 const eventType = [
-  { id: "", name: "יש לבחור", comments: "" },
-
   { id: "1", name: "private", comments: "אין" },
   { id: "2", name: "public", comments: "יש" },
   { id: "3", name: "outside", comments: "אין" },
   { id: "4", name: "front", comments: "יש" },
 ];
 const loctionType = [
-  { id: "", name: "יש לבחור", comments: "" },
-
   { id: "3", name: "tel Aviv", comments: "אין" },
   { id: "4", name: "netivot", comments: "יש" },
   { id: "5", name: "jeruzalem", comments: "יש" },
   { id: "6", name: "Kiryat Ono", comments: "יש" },
 ];
-const Items: IPropsItems[] = [
-  {
-    id: "",
-    name: "יש לבחור",
-    eventTypeId: "",
-    loctionTypeId: "",
-    comments: "",
-  },
+export const Items: IPropsItems[] = [
   {
     id: "0",
     name: "no",
@@ -76,83 +72,76 @@ const Items: IPropsItems[] = [
     comments: "אין",
   },
 ];
-const AppForm = () => {
+const AppForm = ({ options, setOptions }: FormOptions) => {
+  const methods = useForm<FormInputs>({
+    mode: "onBlur",
+    shouldUnregister: true,
+    reValidateMode: "onChange",
+  });
+
   const {
-    control,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<FormInputs>({
-    defaultValues: {
-      eventType: "",
-      loctionType: "",
-      statusId: { name: "ממתין לאישור", id: "1" },
-      items: [{ amount: 0, name: "" }],
-    },
-  });
-  const [orders, setOrders] = useState<FormInputs[]>([]);
+    control,
+    formState: { isSubmitting },
+  } = methods;
+  // const {
+  //   control,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors, isValid },
+  // } = useForm<FormInputs>({
+  //   defaultValues: {
+  //     eventType: "",
+  //     loctionType: "",
+  //     statusId: { name: "ממתין לאישור", id: "1" },
+  //     items: [{ amount: 0, name: "" }],
+  //   },
+  // });
+
   const [allItems, setAllItems] = useState(Items);
 
   const [selcted, setSelected] = useState(true);
-  const onSubmit = (data: FormInputs) => {
-    setOrders((prevOrders) => [...prevOrders, data]);
+  useEffect(() => {
+    console.log(watch("eventType"), watch("locationType"));
+  }, [watch("eventType"), watch("locationType")]);
+  const onSubmit = (data: any) => {
+    setOptions((prevOrders) => [...prevOrders, data]);
     console.log(data);
   };
 
-  useEffect(() => {
-    if (watch("eventType") && watch("loctionType")) {
-      setSelected(false);
-      const newItems = allItems.filter((item) => {
-        console.log(
-          item.eventTypeId === watch("eventType") &&
-            item.loctionTypeId === watch("loctionType")
-        );
-
-        return (
-          item.eventTypeId === watch("eventType") &&
-          item.loctionTypeId === watch("loctionType")
-        );
-      });
-    } else {
-      setSelected(true);
-    }
-  }, [watch("eventType"), watch("loctionType")]);
   return (
-    <DefaultContainer background={true}>
-      {errors.loctionType && <p>cmskamc</p>}
+    // <DefaultContainer background={true}>
+    <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <ArrayInput
-          control={control}
-          name="items"
-          type="text"
-          label="פריטים"
-          options={allItems}
-          selcted={selcted}
-        />
-        <SelectOpt
-          control={control}
-          name="eventType"
-          type="text"
-          label="סוג אירוע"
+        <DynamicSelectFields name="items" options={allItems} />
+
+        <SelectField
           options={eventType}
+          name="eventType"
+          defaultValue={""}
+          validate={{
+            required: (value: string) =>
+              value ? true : "This field is required",
+          }}
+          placeholder="סוג אירוע"
         />
-        <SelectOpt
-          control={control}
-          name="loctionType"
-          type="text"
-          label="מיקום אירוע"
+        <SelectField
           options={loctionType}
-        />
-        <Input
-          control={control}
-          name="loctionType"
-          type="date"
-          label="שעת הזמנה"
+          name="locationType"
+          defaultValue={""}
+          validate={{
+            required: (value: string) =>
+              value ? true : "This field is required",
+          }}
+          placeholder="מקום אירוע"
         />
 
-        <SubmitButton type="submit">submit</SubmitButton>
+        <SubmitButton type="submit" disabled={isSubmitting}>
+          submit
+        </SubmitButton>
       </FormContainer>
-    </DefaultContainer>
+    </FormProvider>
   );
 };
 

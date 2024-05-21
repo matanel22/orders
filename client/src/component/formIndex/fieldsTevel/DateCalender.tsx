@@ -1,6 +1,5 @@
 import React from "react";
 import { useController } from "react-hook-form";
-import { Error } from "./Error";
 
 interface IProps {
   name: string;

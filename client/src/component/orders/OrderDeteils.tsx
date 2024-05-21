@@ -22,6 +22,8 @@ import AddNewOrder from "./addNewOrder";
 import axios from "axios";
 import Card from "../Cards";
 import { DefaultContainer } from "../../defultContainer";
+import AppForm from "../formIndex/hookController";
+import SearchComponent from "../header/search";
 
 const OrderDeteils = ({
   setOpenAddNewOrder,
@@ -84,7 +86,9 @@ const OrderDeteils = ({
             </TableRow>
           </TableHead>
           <TableBody> */}
-      <Card items={allOrders}></Card>
+      {/* <Card items={allOrders}></Card> */}
+      {/* <AppForm /> */}
+      {/* <SearchComponent /> */}
 
       {/* {allOrders.map((order, index: number) => (
               <TableRow

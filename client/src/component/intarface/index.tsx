@@ -19,15 +19,15 @@ export interface OrderIProps {
 }
 export interface DisplayProps<T> {
   setAllOrders: Dispatch<React.SetStateAction<OrderIProps[]>>;
-  MorDetailOfOrder: T; // Single object of type T
+  MorDetailOfOrder: T;
 }
 export interface AddNewIpros {
   setOpenAddNewOrder: Dispatch<React.SetStateAction<boolean>>;
 
   setAllOrders: Dispatch<React.SetStateAction<OrderIProps[]>>;
-  allOrders: OrderIProps[]; // Single object of type T
+  allOrders: OrderIProps[];
 }
 export interface IPropsAdddNewOrder {
   setOpenAddNewOrder: Dispatch<React.SetStateAction<boolean>>;
-  openAddNewOrder: boolean; // Single object of type T
+  openAddNewOrder: boolean;
 }

@@ -2,6 +2,8 @@
 // import React, { useEffect, useState } from "react";
 // import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { SearchContainer } from "./search/style.index";
+import SearchComponent from "./search";
 // import { BASE_URL } from "../../api/constants";
 // import { Plus } from "../../assets/Svgs/Plus";
 // import { Modal } from "../../atoms/Modal";
