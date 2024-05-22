@@ -5,7 +5,7 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { DefaultContainer } from "../../../defultContainer";
 import { FormContainer, SubmitButton } from "./style.index";
 import { isInt, required } from "../../validates";
-import { TextField } from "../fieldsTevel";
+import { TextField } from "../fieldsTevel/TextField";
 
 import DynamicSelectFields from "../fieldsTevel/SelectHf";
 import { SelectField } from "../fieldsTevel/SelectOpt";
@@ -15,7 +15,7 @@ export interface FormInputs {
   name: string;
   eventType: string;
   locationType: string;
-  items: { id: string; name: string; amount: number }[];
+  items: IPropsItems[];
   statusId: { id: string; name: string };
 }
 export interface FormOptions {
@@ -25,6 +25,7 @@ export interface FormOptions {
 export interface IPropsItems {
   id: string;
   name: string;
+  amount?: number;
   eventTypeId?: string;
   loctionTypeId?: string;
   comments?: string;
@@ -45,6 +46,7 @@ const loctionType = [
 export const Items: IPropsItems[] = [
   {
     id: "0",
+
     name: "no",
     eventTypeId: "1",
     loctionTypeId: "4",
@@ -77,6 +79,23 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     mode: "onBlur",
     shouldUnregister: true,
     reValidateMode: "onChange",
+    defaultValues: {
+      id: "",
+      name: "",
+      eventType: "",
+      locationType: "",
+      items: [
+        {
+          id: "",
+          name: "",
+          // amount: 0,
+          loctionTypeId: "",
+          eventTypeId: "",
+          comments: "",
+        },
+      ],
+      statusId: { id: "", name: "" },
+    },
   });
 
   const {
@@ -105,7 +124,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
   useEffect(() => {
     console.log(watch("eventType"), watch("locationType"));
   }, [watch("eventType"), watch("locationType")]);
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormInputs) => {
     setOptions((prevOrders) => [...prevOrders, data]);
     console.log(data);
   };
@@ -114,6 +133,13 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     // <DefaultContainer background={true}>
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          name="name"
+          placeholder={"שם הזמנה"}
+          validate={{
+            required: (value: string) => required(value),
+          }}
+        />
         <DynamicSelectFields name="items" options={allItems} />
 
         <SelectField
@@ -121,8 +147,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           name="eventType"
           defaultValue={""}
           validate={{
-            required: (value: string) =>
-              value ? true : "This field is required",
+            required: (value: string) => required(value),
           }}
           placeholder="סוג אירוע"
         />
@@ -131,8 +156,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           name="locationType"
           defaultValue={""}
           validate={{
-            required: (value: string) =>
-              value ? true : "This field is required",
+            required: (value: string) => required(value),
           }}
           placeholder="מקום אירוע"
         />

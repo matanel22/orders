@@ -1,7 +1,7 @@
 interface IPropsItems {
   id: string;
   name: string;
-  amount: number;
+  amount?: number;
 }
 
 const ItemsDetails = ({ id, name, amount }: IPropsItems) => {

@@ -4,6 +4,7 @@ import { SelectField } from "./SelectOpt";
 import { IPropsItems } from "../hookController";
 import { InputNumberField } from "./InputNumberField";
 import ButtonLoading from "../../UI/ButtonLoading";
+import { required } from "../../validates";
 
 export interface DynamicSelectFieldsProps {
   name: string;
@@ -35,8 +36,7 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
                 options={options}
                 placeholder="Select a value"
                 validate={{
-                  required: (value: string) =>
-                    value ? true : "This field is required",
+                  required: (value: string) => required(value),
                 }}
               />
             )}
@@ -45,8 +45,7 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
             name={`${name}[${index}].amount`}
             defaultValue={""}
             validate={{
-              required: (value: string) =>
-                value ? true : "This field is required",
+              required: (value: string) => (value ? true : "שדה זה הינו חובה"),
             }}
           />
           <ButtonLoading

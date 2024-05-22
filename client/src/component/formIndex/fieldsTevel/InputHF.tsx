@@ -22,8 +22,7 @@ export interface InputProps {
 
 export const InputHF = ({
   name,
-  prefix,
-  suffix,
+
   value = "",
   onChange,
   defaultValue,
@@ -49,11 +48,7 @@ export const InputHF = ({
       {disabled && (
         <div className="w-full h-full bg-opacity-50 cursor-not-allowed absolute top-0 left-0 bg-gray-200"></div>
       )}
-      {prefix && (
-        <div className="bg-white flex justify-center items-center">
-          {prefix}
-        </div>
-      )}
+
       <input
         data-cy={name}
         onKeyDown={onKeyDown}
@@ -80,11 +75,7 @@ export const InputHF = ({
           {/* <AiOutlineCloseCircle className="text-gray-400 cursor-pointer hover:text-gray-700" /> */}
         </div>
       ) : (
-        suffix && (
-          <div className="bg-white flex justify-center items-center">
-            {suffix}
-          </div>
-        )
+        ""
       )}
     </div>
   );

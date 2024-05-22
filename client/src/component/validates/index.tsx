@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 export const required = (value: string | undefined) => {
   if (value === undefined || !value || value.length === 0) {
-    return false;
+    return "שדה זה הינו חובה";
   }
 };
 export const validDate = (
