@@ -6,7 +6,7 @@ interface IPropsItems {
 
 const ItemsDetails = ({ id, name, amount }: IPropsItems) => {
   return (
-    <ul>
+    <ul key={id}>
       <li>{name}</li>
       <li>{amount}</li>
     </ul>
