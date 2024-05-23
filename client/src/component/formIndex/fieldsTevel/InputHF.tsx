@@ -25,7 +25,7 @@ export const InputHF = ({
 
   value = "",
   onChange,
-  defaultValue,
+
   onBlur,
   autoComplete = "on",
   disabled = false,
@@ -34,7 +34,7 @@ export const InputHF = ({
   type = "text",
   placeholder,
   allowClear = false,
-  className,
+  
   onKeyDown,
 }: InputProps) => {
   const [isHover, setIsHover] = useState(false);
