@@ -21,7 +21,6 @@ export interface InputProps {
 
 export const InputT = ({
   name,
-
   value = "",
   onChange,
   defaultValue,
@@ -32,7 +31,6 @@ export const InputT = ({
   maxLength,
   type = "text",
   placeholder,
- 
   onKeyDown,
 }: InputProps) => {
   const [isHover, setIsHover] = useState(false);
