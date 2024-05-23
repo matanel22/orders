@@ -9,6 +9,8 @@ import { TextField } from "../fieldsTevel/TextField";
 
 import DynamicSelectFields from "../fieldsTevel/SelectHf";
 import { SelectField } from "../fieldsTevel/SelectOpt";
+import ButtonUI from "../../ButtonUi";
+import DateCalender from "../fieldsTevel/DateCalender";
 
 export interface FormInputs {
   id: string;
@@ -17,6 +19,9 @@ export interface FormInputs {
   locationType: string;
   items: IPropsItems[];
   statusId: { id: string; name: string };
+  orderDate?: Date;
+  orderTime?: string;
+
 }
 export interface FormOptions {
   options: FormInputs[];
@@ -29,7 +34,7 @@ export interface IPropsItems {
   eventTypeId?: string;
   loctionTypeId?: string;
   comments?: string;
-  orderTime?: Date;
+  
 }
 const eventType = [
   { id: "1", name: "private", comments: "אין" },
@@ -102,7 +107,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     handleSubmit,
     watch,
     control,
-    formState: { isSubmitting },
+    formState: { isSubmitting,isValid },
   } = methods;
   // const {
   //   control,
@@ -130,12 +135,30 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
   };
 
   return (
-    // <DefaultContainer background={true}>
+    <DefaultContainer background={true}>
+
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
         <TextField
           name="name"
           placeholder={"שם הזמנה"}
+          validate={{
+            required: (value: string) => required(value),
+          }}
+        />
+        <TextField
+          name="orderTime"
+          placeholder={"שעת הזמנה"}
+          type={"time"}
+          validate={{
+            required: (value: string) => required(value),
+          }}
+        />
+         <DateCalender
+         label=""
+          name="orderDate"
+          placeholder={"תאריך הזמנה"}
+          type={"date"}
           validate={{
             required: (value: string) => required(value),
           }}
@@ -161,11 +184,14 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           placeholder="מקום אירוע"
         />
 
-        <SubmitButton type="submit" disabled={isSubmitting}>
-          submit
-        </SubmitButton>
+        <ButtonUI  type="submit" disabled={!isValid}name="הוסף הזמנה">
+        
+        </ButtonUI>
       </FormContainer>
     </FormProvider>
+    
+    </DefaultContainer>
+
   );
 };
 

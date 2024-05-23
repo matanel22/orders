@@ -25,7 +25,7 @@ interface Person {
   occupation?: string;
 }
 
-const ALL_ORDERS: FormInputs[] = [
+export const ALL_ORDERS: FormInputs[] = [
   {
     id: "1",
     name: "Alice Johnson",
@@ -70,7 +70,7 @@ const AllOrders = () => {
       </HeaderWarper>
       {/* <SearchComponent items={searchResults} state={setSearchResults} /> */}
       {/* <Card options={searchResults} /> */}
-      <AppForm options={searchResults} setOptions={setSearchResults} />
+
       {/* <ResultsList>
         {searchResults.map((result) => (
           <ResultItem key={result.id}>

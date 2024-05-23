@@ -1,7 +1,8 @@
 import React from "react";
 import { useController } from "react-hook-form";
-import { InputHF } from "./InputHF";
+
 import { Error } from "../hookController/Error";
+import { InputT } from "./InputT";
 
 export interface InputProps {
   style?: React.CSSProperties;
@@ -9,8 +10,6 @@ export interface InputProps {
   onChange: (value: string | undefined) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
-  prefix?: React.ReactNode;
-  suffix?: React.ReactNode;
   disabled?: boolean;
   className?: string;
   autoComplete?: "off" | "on";
@@ -28,12 +27,11 @@ type Props = Omit<InputProps, "onChange" | "inputRef" | "onBlur"> & {
   defaultValue?: undefined | string | number;
 };
 
-export const TextField = ({
+export const TimeCalender = ({
   name,
   validate,
   defaultValue,
-  prefix,
-  suffix,
+  
   value,
   type,
   ...props
@@ -48,7 +46,7 @@ export const TextField = ({
 
   return (
     <div className="flex flex-col">
-      <InputHF
+      <InputT
         {...props}
         inputRef={ref}
         name={name}
