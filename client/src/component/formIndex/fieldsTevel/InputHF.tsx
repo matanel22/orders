@@ -40,10 +40,8 @@ export const InputHF = ({
       {disabled && (
         <div className="w-full h-full bg-opacity-50 cursor-not-allowed absolute top-0 left-0 bg-gray-200"></div>
       )}
-
       <input
         data-cy={name}
-      
         placeholder={placeholder}
         ref={inputRef}
         maxLength={maxLength}
