@@ -22,10 +22,8 @@ export interface InputProps {
 
 export const InputHF = ({
   name,
-
   value = "",
   onChange,
-
   onBlur,
   autoComplete = "on",
   disabled = false,
