@@ -1,23 +1,26 @@
 import React from "react";
-import { useController } from "react-hook-form";
+import { useController, useForm, useFormContext } from "react-hook-form";
 
 interface IProps {
   name: string;
   type: string;
   label: string;
-  control: any; // Use correct type for control
+  placeholder:string;
+ // Use correct type for control
   validate?: any;
   defaultValue?: string | number; // Adjust the type of defaultValue
 }
 
 const DateCalender = ({
-  control,
+  
   name,
   type,
   label,
   validate,
   defaultValue,
+  placeholder
 }: IProps) => {
+  const {control} = useFormContext()
   const {
     field: { onBlur, onChange, ref, value },
   } = useController({
@@ -35,10 +38,11 @@ const DateCalender = ({
         onChange={(e) => {
           onChange(e.target.value);
         }}
+       
         ref={ref}
         onBlur={onBlur}
         value={value}
-        placeholder={label}
+         placeholder={placeholder}
       />
     </>
   );

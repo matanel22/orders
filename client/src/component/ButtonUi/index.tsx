@@ -1,11 +1,12 @@
 import React, { ReactNode } from "react";
+import { SubmitButton } from "../formIndex/hookController/style.index";
 
 interface IPropsButtonUI {
   size?: "small" | "medium" | "large" | "extra-small";
   loading?: boolean;
   onClick?: () => void;
   buttonType?: "button" | "reset" | "submit";
-  type?: "regular" | "ghost";
+  type?:string;
   disabled?: boolean;
   danger?: boolean;
   name?: string;
@@ -25,9 +26,9 @@ const ButtonUI = ({
   children,
 }: IPropsButtonUI) => {
   return (
-    <button type={buttonType} onClick={onClick}>
+    <SubmitButton disabled={disabled} type={buttonType} onClick={onClick}>
       {name}
-    </button>
+    </SubmitButton>
   );
 };
 

@@ -6,6 +6,7 @@ export interface InputProps {
   onChange: (value: string | undefined) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
+  
   disabled?: boolean;
   className?: string;
   autoComplete?: "off" | "on";
@@ -17,10 +18,12 @@ export interface InputProps {
   maxLength?: number;
   defaultValue?: string;
 }
-export const InputHF = ({
+
+export const InputT = ({
   name,
   value = "",
   onChange,
+  defaultValue,
   onBlur,
   autoComplete = "on",
   disabled = false,
@@ -28,6 +31,7 @@ export const InputHF = ({
   maxLength,
   type = "text",
   placeholder,
+  onKeyDown,
 }: InputProps) => {
   const [isHover, setIsHover] = useState(false);
 
@@ -43,7 +47,7 @@ export const InputHF = ({
 
       <input
         data-cy={name}
-      
+        onKeyDown={onKeyDown}
         placeholder={placeholder}
         ref={inputRef}
         maxLength={maxLength}
