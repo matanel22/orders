@@ -30,7 +30,6 @@ export const InputHF = ({
   maxLength,
   type = "text",
   placeholder,
-
 }: InputProps) => {
   const [isHover, setIsHover] = useState(false);
 
