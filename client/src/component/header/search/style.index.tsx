@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const SearchContainer = styled.div`
-  width: 300px;
+direction: rtl;
+  width: 150px;
   margin: auto;
 `;
 

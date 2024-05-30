@@ -3,10 +3,14 @@ import styled from "styled-components";
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  direction: rtl;
   gap: 10px;
   padding: 20px;
   border-radius: 5px;
   background-color: #f4f4f4;
+
 `;
 
 export const SelectInput = styled.select`

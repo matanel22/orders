@@ -18,18 +18,19 @@ export const genericSearch = <T extends Record<string, any>>(
   array: T[],
   event: React.ChangeEvent<HTMLInputElement>
 ): T[] => {
-  const query = event.target.value;
+  const query = event.target.value.toLowerCase();
   if (!query) return array;
 
-  const searchString = query.toLowerCase();
-
   return array.filter((item) => {
-    const itemValues = Object.values(item).filter((value) => value != null);
-    const itemString = itemValues.join(" ").toLowerCase();
+    const itemString = Object.values(item)
+      .filter((value) => value != null)
+      .join(" ")
+      .toLowerCase();
 
-    return itemString.includes(searchString);
+    return itemString.includes(query);
   });
 };
+
 
 const SearchComponent = <T extends Record<string, any>>({
   items,
@@ -37,7 +38,6 @@ const SearchComponent = <T extends Record<string, any>>({
 }: ArrayComponent<T>) => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const results = genericSearch(items, event);
-
     state?.(results);
   };
   return (
@@ -46,7 +46,7 @@ const SearchComponent = <T extends Record<string, any>>({
         type="text"
         // value={searchTerm}
         onChange={handleSearch}
-        placeholder="Search..."
+        placeholder="חיפוש..."
       />
     </SearchContainer>
   );

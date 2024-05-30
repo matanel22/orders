@@ -11,6 +11,7 @@ import DynamicSelectFields from "../fieldsTevel/SelectHf";
 import { SelectField } from "../fieldsTevel/SelectOpt";
 import ButtonUI from "../../ButtonUi";
 import DateCalender from "../fieldsTevel/DateCalender";
+import { useNavigate } from "react-router-dom";
 
 export interface FormInputs {
   id: string;
@@ -102,26 +103,14 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
       statusId: { id: "", name: "" },
     },
   });
-
+  const nav = useNavigate();
   const {
     handleSubmit,
     watch,
     control,
     formState: { isSubmitting,isValid },
   } = methods;
-  // const {
-  //   control,
-  //   handleSubmit,
-  //   watch,
-  //   formState: { errors, isValid },
-  // } = useForm<FormInputs>({
-  //   defaultValues: {
-  //     eventType: "",
-  //     loctionType: "",
-  //     statusId: { name: "ממתין לאישור", id: "1" },
-  //     items: [{ amount: 0, name: "" }],
-  //   },
-  // });
+
 
   const [allItems, setAllItems] = useState(Items);
 
@@ -139,6 +128,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
 
     <FormProvider {...methods}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
+        <h1 style={{textAlign:"center"}}>יצירת הזמנה</h1>
         <TextField
           name="name"
           placeholder={"שם הזמנה"}
@@ -146,6 +136,8 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
             required: (value: string) => required(value),
           }}
         />
+        <div style={{display:"flex"}}>
+      
         <TextField
           name="orderTime"
           placeholder={"שעת הזמנה"}
@@ -154,6 +146,8 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
             required: (value: string) => required(value),
           }}
         />
+       
+        <div style={{paddingRight:"1rem"}}>
          <DateCalender
          label=""
           name="orderDate"
@@ -163,7 +157,9 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
             required: (value: string) => required(value),
           }}
         />
-        <DynamicSelectFields name="items" options={allItems} />
+        </div>
+        </div>
+    
 
         <SelectField
           options={eventType}
@@ -183,7 +179,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           }}
           placeholder="מקום אירוע"
         />
-
+    <DynamicSelectFields name="items" options={allItems} />
         <ButtonUI  type="submit" disabled={!isValid}name="הוסף הזמנה">
         
         </ButtonUI>

@@ -1,4 +1,5 @@
 import React, { CSSProperties, ReactNode, Ref, useState } from "react";
+import styled from "styled-components";
 // import { AiOutlineCloseCircle } from "react-icons/ai";
 export interface InputNumberProps {
   style?: CSSProperties;
@@ -40,12 +41,12 @@ export const InputNumber = ({
           {prefix}
         </div>
       )}
-      <input
+      <InputNumberDegine
         {...props}
         placeholder={placeholder}
         ref={inputRef}
         type="number"
-        role="search"
+        name={name}
         className={"border-none rtl:pr-2 ltr:pl-2 outline-none py-1 w-full"}
         data-cy={name}
         value={value}
@@ -69,3 +70,24 @@ export const InputNumber = ({
     </div>
   );
 };
+
+export const InputNumberDegine=styled.input`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+  padding: 14px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 100;
+     
+  &::placeholder {
+      color: #ccc;
+      opacity: 1;
+    }
+  &:focus-within {
+    border-color: #8c7569;
+    }
+`
