@@ -6,22 +6,21 @@ interface IProps {
   name: string;
   type: string;
   label: string;
-  placeholder:string;
- // Use correct type for control
+  placeholder: string;
+
   validate?: any;
-  defaultValue?: string | number; // Adjust the type of defaultValue
+  defaultValue?: string | number;
 }
 
 const DateCalender = ({
-  
   name,
   type,
   label,
   validate,
   defaultValue,
-  placeholder
+  placeholder,
 }: IProps) => {
-  const {control} = useFormContext()
+  const { control } = useFormContext();
   const {
     field: { onBlur, onChange, ref, value },
   } = useController({
@@ -39,11 +38,10 @@ const DateCalender = ({
         onChange={(e) => {
           onChange(e.target.value);
         }}
-       
         ref={ref}
         onBlur={onBlur}
         value={value}
-         placeholder={placeholder}
+        placeholder={placeholder}
       />
     </>
   );
@@ -51,20 +49,20 @@ const DateCalender = ({
 
 export default DateCalender;
 
-export const InputDateDegine=styled.input`
+export const InputDateDegine = styled.input`
   display: flex;
   flex-direction: column;
- 
+
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-bottom: 20px;
   padding: 19px;
   transition: 0.3s;
-    &::placeholder {
-      color: #ccc;
-      opacity: 1;
-    }
-    &:focus-within {
+  &::placeholder {
+    color: #ccc;
+    opacity: 1;
+  }
+  &:focus-within {
     border-color: #8c7569;
-    }
-`
+  }
+`;

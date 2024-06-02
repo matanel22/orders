@@ -22,7 +22,6 @@ export interface FormInputs {
   statusId: { id: string; name: string };
   orderDate?: Date;
   orderTime?: string;
-
 }
 export interface FormOptions {
   options: FormInputs[];
@@ -35,7 +34,6 @@ export interface IPropsItems {
   eventTypeId?: string;
   loctionTypeId?: string;
   comments?: string;
-  
 }
 const eventType = [
   { id: "1", name: "private", comments: "אין" },
@@ -87,6 +85,8 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     reValidateMode: "onChange",
     defaultValues: {
       id: "",
+      statusId: { id: "1", name: "טרם אושר" },
+
       name: "",
       eventType: "",
       locationType: "",
@@ -100,7 +100,6 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           comments: "",
         },
       ],
-      statusId: { id: "", name: "" },
     },
   });
   const nav = useNavigate();
@@ -108,86 +107,79 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     handleSubmit,
     watch,
     control,
-    formState: { isSubmitting,isValid },
+    formState: { isValid },
   } = methods;
-
 
   const [allItems, setAllItems] = useState(Items);
 
-  const [selcted, setSelected] = useState(true);
-  useEffect(() => {
-    console.log(watch("eventType"), watch("locationType"));
-  }, [watch("eventType"), watch("locationType")]);
   const onSubmit = (data: FormInputs) => {
     setOptions((prevOrders) => [...prevOrders, data]);
     console.log(data);
+    nav("/");
   };
 
   return (
     <DefaultContainer background={true}>
+      <FormProvider {...methods}>
+        <FormContainer onSubmit={handleSubmit(onSubmit)}>
+          <h1 style={{ textAlign: "center" }}>יצירת הזמנה</h1>
+          <TextField
+            name="name"
+            placeholder={"שם הזמנה"}
+            validate={{
+              required: (value: string) => required(value),
+            }}
+          />
+          <div style={{ display: "flex" }}>
+            <TextField
+              name="orderTime"
+              placeholder={"שעת הזמנה"}
+              type={"time"}
+              validate={{
+                required: (value: string) => required(value),
+              }}
+            />
 
-    <FormProvider {...methods}>
-      <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <h1 style={{textAlign:"center"}}>יצירת הזמנה</h1>
-        <TextField
-          name="name"
-          placeholder={"שם הזמנה"}
-          validate={{
-            required: (value: string) => required(value),
-          }}
-        />
-        <div style={{display:"flex"}}>
-      
-        <TextField
-          name="orderTime"
-          placeholder={"שעת הזמנה"}
-          type={"time"}
-          validate={{
-            required: (value: string) => required(value),
-          }}
-        />
-       
-        <div style={{paddingRight:"1rem"}}>
-         <DateCalender
-         label=""
-          name="orderDate"
-          placeholder={"תאריך הזמנה"}
-          type={"date"}
-          validate={{
-            required: (value: string) => required(value),
-          }}
-        />
-        </div>
-        </div>
-    
+            <div style={{ paddingRight: "1rem" }}>
+              <DateCalender
+                label=""
+                name="orderDate"
+                placeholder={"תאריך הזמנה"}
+                type={"date"}
+                validate={{
+                  required: (value: string) => required(value),
+                }}
+              />
+            </div>
+          </div>
 
-        <SelectField
-          options={eventType}
-          name="eventType"
-          defaultValue={""}
-          validate={{
-            required: (value: string) => required(value),
-          }}
-          placeholder="סוג אירוע"
-        />
-        <SelectField
-          options={loctionType}
-          name="locationType"
-          defaultValue={""}
-          validate={{
-            required: (value: string) => required(value),
-          }}
-          placeholder="מקום אירוע"
-        />
-    <DynamicSelectFields name="items" options={allItems} />
-        <ButtonUI  type="submit" disabled={!isValid}name="הוסף הזמנה">
-        
-        </ButtonUI>
-      </FormContainer>
-    </FormProvider>
-    
+          <SelectField
+            options={eventType}
+            name="eventType"
+            defaultValue={""}
+            validate={{
+              required: (value: string) => required(value),
+            }}
+            placeholder="סוג אירוע"
+          />
+          <SelectField
+            options={loctionType}
+            name="locationType"
+            defaultValue={""}
+            validate={{
+              required: (value: string) => required(value),
+            }}
+            placeholder="מקום אירוע"
+          />
+          <DynamicSelectFields name="items" options={allItems} />
+          <ButtonUI
+            type="submit"
+            disabled={!isValid}
+            name="הוסף הזמנה"
+          ></ButtonUI>
+        </FormContainer>
+      </FormProvider>
     </DefaultContainer>
-
   );
 };
 
