@@ -35,13 +35,13 @@ export interface IPropsItems {
   loctionTypeId?: string;
   comments?: string;
 }
-const eventType = [
+export const EventType = [
   { id: "1", name: "private", comments: "אין" },
   { id: "2", name: "public", comments: "יש" },
   { id: "3", name: "outside", comments: "אין" },
   { id: "4", name: "front", comments: "יש" },
 ];
-const loctionType = [
+export const LoctionType = [
   { id: "3", name: "tel Aviv", comments: "אין" },
   { id: "4", name: "netivot", comments: "יש" },
   { id: "5", name: "jeruzalem", comments: "יש" },
@@ -50,7 +50,6 @@ const loctionType = [
 export const Items: IPropsItems[] = [
   {
     id: "0",
-
     name: "no",
     eventTypeId: "1",
     loctionTypeId: "4",
@@ -154,7 +153,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
           </div>
 
           <SelectField
-            options={eventType}
+            options={EventType}
             name="eventType"
             defaultValue={""}
             validate={{
@@ -163,7 +162,7 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
             placeholder="סוג אירוע"
           />
           <SelectField
-            options={loctionType}
+            options={LoctionType}
             name="locationType"
             defaultValue={""}
             validate={{
