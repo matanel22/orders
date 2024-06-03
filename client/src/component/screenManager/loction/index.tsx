@@ -1,4 +1,5 @@
-import { Dispatch } from "react";
+import React,{ Dispatch } from "react";
+import DataTable from "../tableRow";
 
 interface EventProper {
   id: string;
@@ -11,5 +12,10 @@ export interface IPropsEventLoc {
 }
 
 export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
-  return <h1>ViewLoction</h1>;
+  return(
+    <>
+    <h1>View Loction</h1>
+    {/* <DataTable initialData={options} setInitialData={setOptions}/> */}
+    </>
+  ) ;
 };

@@ -19,14 +19,8 @@ export const ScreenManager = () => {
 
   return (
     <DefaultContainer background={true}>
-      {path === "items" ? (
-        <ViewItems setOptions={setAllItems} options={allItems} />
-      ) : path === "ViewLoction" ? (
-        <ViewLoction options={allEvent} setOptions={setAllEvent} />
-      ) : (
-        <ViewEvent options={allLoction} setOptions={setAllLoction} />
-      )}
-      <button
+    <div  style={{direction:"rtl"}}>
+          <button
         type="button"
         onClick={() => {
           changeItem("items");
@@ -50,6 +44,14 @@ export const ScreenManager = () => {
       >
         {"ViewEventType"}
       </button>
+      {path === "items" ? (
+        <ViewItems setOptions={setAllItems} options={allItems} />
+      ) : path === "ViewLoction" ? (
+        <ViewLoction options={allEvent} setOptions={setAllEvent} />
+      ) : (
+        <ViewEvent options={allLoction} setOptions={setAllLoction} />
+      )}
+    </div>
     </DefaultContainer>
   );
 };
