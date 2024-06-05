@@ -1,21 +1,60 @@
-import { Dispatch } from "react";
+import { Dispatch, useState } from "react";
 import { IPropsItems } from "../../formIndex/hookController";
+
+import { MSTTable, TableColumn } from "../MSTtable";
 import DataTable from "../tableRow";
+
 
 interface IProps {
   setOptions: Dispatch<React.SetStateAction<IPropsItems[]>>;
   options: IPropsItems[];
 }
-export const colonms =[
-  {id:"1",name:"פריט 1"},
-  {id:"2",name:"פריט 2"},
-  {id:"3",name:"פריט 3"},
-  {id:"4",name:"פריט 4"},
-  
-]
+
+
+const ItemsTableRow: TableColumn[] = [
+  {
+    label: "שם פריט",
+    columnId: "name",
+  },
+];
+const editItems = [
+  {
+    table: "items",
+    name: "name",
+    edit: "input",
+    type: "text",
+  },
+  {
+    table: "items",
+    name: "name",
+    edit: "select",
+    // type:"text",
+  },
+];
 export const ViewItems = ({ setOptions, options }: IProps) => {
-  return <>
-  <h1>View Items</h1>
-   <DataTable   colonms={colonms} initialData={options} setInitialData={setOptions}/>
-  </>;
+  const [searchValue, setSearchValue] = useState("");
+  const heandleLineChange = () => {};
+  const heandleDelete = () => {};
+  const heandleAddLine = () => {};
+  return (
+    <MSTTable
+      textButton={"הוספת פריט"}
+      headLine={"View Items"}
+      tableHeadRow={ItemsTableRow}
+      lines={options}
+      editData={editItems}
+      heandleLineChange={heandleLineChange}
+      heandleDelete={heandleDelete}
+      heandleAddLine={heandleAddLine}
+      searchValue={searchValue}
+    >
+      <input
+        value={searchValue}
+        onChange={({ target }) => setSearchValue(target.value)}
+      />
+    </MSTTable>
+  );
+
+
+
 };
