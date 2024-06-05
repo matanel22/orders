@@ -1,11 +1,15 @@
 import { Dispatch, useState } from "react";
 import { IPropsItems } from "../../formIndex/hookController";
+
 import { MSTTable, TableColumn } from "../MSTtable";
+import DataTable from "../tableRow";
+
 
 interface IProps {
   setOptions: Dispatch<React.SetStateAction<IPropsItems[]>>;
   options: IPropsItems[];
 }
+
 
 const ItemsTableRow: TableColumn[] = [
   {
@@ -50,4 +54,7 @@ export const ViewItems = ({ setOptions, options }: IProps) => {
       />
     </MSTTable>
   );
+
+
+
 };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MSTTable, TableColumn } from "../MSTtable";
 import { IPropsEventLoc } from "../loction";
+
 const EventTableRow: TableColumn[] = [
   {
     label: "סוג אירוע",
@@ -44,4 +45,5 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
       />
     </MSTTable>
   );
+
 };
