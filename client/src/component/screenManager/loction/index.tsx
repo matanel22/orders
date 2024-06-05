@@ -1,5 +1,10 @@
+
 import { Dispatch, useState } from "react";
 import { MSTTable, TableColumn } from "../MSTtable";
+
+import React,{ Dispatch } from "react";
+import DataTable from "../tableRow";
+
 
 interface EventProper {
   id: string;
@@ -36,6 +41,7 @@ export interface IPropsEventLoc {
 }
 
 export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
+
   const [searchValue, setSearchValue] = useState("");
   const heandleLineChange = () => {};
   const heandleDelete = () => {};
@@ -57,5 +63,7 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
         onChange={({ target }) => setSearchValue(target.value)}
       />
     </MSTTable>
-  );
+
+
+
 };
