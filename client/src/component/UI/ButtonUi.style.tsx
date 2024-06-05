@@ -15,14 +15,15 @@ interface ButtonProps {
 // Styled button component
 export const Button = styled.button<ButtonProps>`
   background-color: ${({ isLoading }) =>
-    isLoading ? "#ccc" : "darkolivegreen"};
+  isLoading ? "#ccc" : "darkolivegreen"};
+  margin-right: 0.3rem;
   color: white;
-  padding: 10px 20px;
+  padding: 17px;
   border: none;
   border-radius: 5px;
   cursor: ${({ isLoading }) => (isLoading ? "not-allowed" : "pointer")};
   transition: background-color 0.3s ease;
-  margin-buttom: 1rem;
+  /* margin-buttom: 1rem; */
 
   &:hover {
     background-color: ${({ isLoading }) =>

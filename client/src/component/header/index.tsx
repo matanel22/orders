@@ -4,6 +4,8 @@
 import styled from "styled-components";
 import { SearchContainer } from "./search/style.index";
 import SearchComponent from "./search";
+import { useState } from "react";
+
 // import { BASE_URL } from "../../api/constants";
 // import { Plus } from "../../assets/Svgs/Plus";
 // import { Modal } from "../../atoms/Modal";
@@ -18,10 +20,13 @@ interface IProps {
 }
 
 export const Header = ({ plus }: IProps) => {
+  // const [searchResults, setSearchResults] = useState(ALL_ORDERS);
   return (
     <>
       <HeaderWarper>
-        <HeaderStyle></HeaderStyle>
+        <HeaderStyle>
+          {/* <SearchComponent items={searchResults}/> */}
+        </HeaderStyle>
       </HeaderWarper>
     </>
   );

@@ -1,0 +1,93 @@
+import React, { useEffect, useState } from "react";
+import { DefaultContainer } from "../../defultContainer";
+import { ViewItems } from "./items";
+import { ViewEvent } from "./events";
+import { ViewLoction } from "./loction";
+import { useNavigate, useParams } from "react-router-dom";
+import { Items, EventType, LoctionType } from "../formIndex/hookController";
+import { Buttons } from "./MSTtable/Buttons";
+export const ScreenManager = () => {
+  const [path, setPath] = useState("");
+  const [allItems, setAllItems] = useState(Items);
+  const [allEvent, setAllEvent] = useState(EventType);
+  const [allLoction, setAllLoction] = useState(LoctionType);
+  const navigate = useNavigate();
+
+  const changeItem = (newItemId: string) => {
+    setPath(newItemId);
+    navigate(`/managerSrceen/${newItemId}`, { replace: true });
+  };
+
+  return (
+    <DefaultContainer background={true}>
+
+      <div style={{ direction: "rtl" }}>
+        <Buttons
+          type="button"
+          onClick={() => {
+            changeItem("items");
+          }}
+          text={"items"}
+        />
+
+        <Buttons
+          type="button"
+          onClick={() => {
+            changeItem("ViewLoction");
+          }}
+          text={"ViewLoction"}
+        />
+
+        <Buttons
+          type="button"
+          onClick={() => {
+            changeItem("ViewEventType");
+          }}
+          text={"ViewEventType"}
+        />
+        {path === "items" ? (
+          <ViewItems setOptions={setAllItems} options={allItems} />
+        ) : path === "ViewLoction" ? (
+          <ViewLoction options={allEvent} setOptions={setAllEvent} />
+        ) : (
+          <ViewEvent options={allLoction} setOptions={setAllLoction} />
+        )}
+      </div>
+
+    <div  style={{direction:"rtl"}}>
+          <button
+        type="button"
+        onClick={() => {
+          changeItem("items");
+        }}
+      >
+        {"items"}
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          changeItem("ViewLoction");
+        }}
+      >
+        {"ViewLoction"}
+      </button>
+      <button
+        type="button"
+        onClick={() => {
+          changeItem("ViewEventType");
+        }}
+      >
+        {"ViewEventType"}
+      </button>
+      {path === "items" ? (
+        <ViewItems setOptions={setAllItems} options={allItems} />
+      ) : path === "ViewLoction" ? (
+        <ViewLoction options={allEvent} setOptions={setAllEvent} />
+      ) : (
+        <ViewEvent options={allLoction} setOptions={setAllLoction} />
+      )}
+    </div>
+
+    </DefaultContainer>
+  );
+};

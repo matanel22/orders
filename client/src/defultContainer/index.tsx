@@ -34,5 +34,6 @@ const AppWrapper = styled.div<IProps>`
   height: ${(props) => (props?.height ? `${props.height}%` : "unset")};
   min-height: 100vh;
   width: 100vw;
+  /* direction:"rtl" */
 `;
 // background: ${(props) => props.background === true && `#d1d1d1`};

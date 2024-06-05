@@ -18,6 +18,7 @@ import AppForm, {
   Items,
 } from "../formIndex/hookController";
 import { useNavigate } from "react-router-dom";
+import { ALL_ORDERS } from "../ArrData";
 interface Person {
   id: string;
   name: string;
@@ -25,33 +26,9 @@ interface Person {
   occupation?: string;
 }
 
-export const ALL_ORDERS: FormInputs[] = [
-  {
-    id: "1",
-    name: "Alice Johnson",
-    eventType: "30",
-    locationType: "Engineer",
-    items: [{ id: "1", name: "נעליים", amount: 40 }],
-    statusId: { id: "1", name: "ממתין לאישור" },
-  },
-  {
-    id: "2",
-    name: "Bob Smith",
-    eventType: "30",
-    locationType: "Engineer",
-    items: [{ id: "2", name: "סנדלים", amount: 40 }],
-    statusId: { id: "2", name: "מאושר" },
-  },
-  {
-    id: "3",
-    name: "Charlie Brown",
-    eventType: "30",
-    locationType: "Engineer",
-    items: [{ id: "3", name: "מגפיים", amount: 40 }],
-    statusId: { id: "3", name: "בוטל" },
-  },
-];
-const AllOrders = () => {
+// const orderDate = comperForDate("20/05/2023");
+
+const AllOrders = ({ options, setOptions }: FormOptions) => {
   const nav = useNavigate();
   const [openAddNewOrder, setOpenAddNewOrder] = useState(false);
   const [searchResults, setSearchResults] = useState(ALL_ORDERS);
@@ -79,10 +56,7 @@ const AllOrders = () => {
         ))}
       </ResultsList> */}
 
-      <OrderDeteils
-        openAddNewOrder={openAddNewOrder}
-        setOpenAddNewOrder={setOpenAddNewOrder}
-      />
+      <OrderDeteils options={options} setOptions={setOptions} />
     </DefaultContainer>
   );
 };
