@@ -11,6 +11,10 @@ const LoctionTableRow: TableColumn[] = [
     label: "מקום אירוע",
     columnId: "name",
   },
+  {
+    label: "מקום אירוע",
+    columnId: "id",
+  },
 ];
 const editLoction = [
   {
@@ -19,12 +23,12 @@ const editLoction = [
     edit: "input",
     type: "text",
   },
-  {
-    table: "items",
-    name: "name",
-    edit: "select",
-    // type:"text",
-  },
+  // {
+  //   table: "items",
+  //   name: "name",
+  //   edit: "select",
+  //   // type:"text",
+  // },
 ];
 export interface IPropsEventLoc {
   options: EventProper[];

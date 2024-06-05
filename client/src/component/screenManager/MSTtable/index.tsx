@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { TableLine } from "./TableLine";
 import styled from "styled-components";
 import { Buttons } from "./Buttons";

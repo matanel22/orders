@@ -14,12 +14,12 @@ const editEvents = [
     edit: "input",
     type: "text",
   },
-  {
-    table: "items",
-    name: "name",
-    edit: "select",
-    // type:"text",
-  },
+  // {
+  //   table: "items",
+  //   name: "name",
+  //   edit: "select",
+  //   // type:"text",
+  // },
 ];
 export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
   const [searchValue, setSearchValue] = useState("");

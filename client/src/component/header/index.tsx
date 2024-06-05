@@ -25,6 +25,7 @@ export const Header = ({ plus }: IProps) => {
     <>
       <HeaderWarper>
         <HeaderStyle>
+          <h1>ניהול משתמשים</h1>
           {/* <SearchComponent items={searchResults}/> */}
         </HeaderStyle>
       </HeaderWarper>
@@ -34,7 +35,7 @@ export const Header = ({ plus }: IProps) => {
 
 const HeaderStyle = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 const HeaderWarper = styled.div`
@@ -44,7 +45,7 @@ const HeaderWarper = styled.div`
   padding: 1rem 0rem 1.5rem 0rem;
   max-width: 100vw;
   position: sticky;
-  background-color: #6cba65;
+  // background-color: #6cba65;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
   margin: 0 0 1rem 0;

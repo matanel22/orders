@@ -20,12 +20,12 @@ const editItems = [
     edit: "input",
     type: "text",
   },
-  {
-    table: "items",
-    name: "name",
-    edit: "select",
-    // type:"text",
-  },
+  // {
+  //   table: "items",
+  //   name: "name",
+  //   edit: "select",
+  //   // type:"text",
+  // },
 ];
 export const ViewItems = ({ setOptions, options }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
