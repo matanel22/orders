@@ -22,6 +22,7 @@ export const InputFields = ({
         value={value}
         type={type}
         onChange={({ target }) => {
+          changeSelectValue(target.value);
           setValue(target.value);
         }}
       />

@@ -1,7 +1,8 @@
-import { ReactNode, useEffect } from "react";
+import { Dispatch, ReactNode, useEffect, useState } from "react";
 import { TableLine } from "./TableLine";
 import styled from "styled-components";
-import { Buttons } from "./Buttons";
+import { MSButton } from "./MSButton";
+import { InputFields } from "./fields/InputFields";
 export interface TableColumn {
   columnId: string;
   label: string;
@@ -17,10 +18,12 @@ interface MSTTableProps {
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
   heandleDelete: (id: string) => void;
-  heandleAddLine: () => void;
+  heandleAddLine: any;
   searchValue: string;
   children?: ReactNode;
   textButton: string;
+  setCancel?: Dispatch<React.SetStateAction<boolean | undefined>>;
+  cancel?: boolean;
 }
 
 export const MSTTable = ({
@@ -34,7 +37,10 @@ export const MSTTable = ({
   heandleAddLine,
   children,
   textButton,
+  setCancel,
+  cancel,
 }: MSTTableProps) => {
+  const [mode, setMode] = useState("");
   return (
     <TableWrapper>
       <div>{headLine}</div>
@@ -60,11 +66,49 @@ export const MSTTable = ({
                 heandleLineChange={heandleLineChange}
                 line={line}
                 searchValue={searchValue}
+                setCancel={setCancel}
+                cancel={cancel}
               />
             ))}
           </tbody>
         </table>
-        <Buttons type="button" text={textButton} onClick={heandleAddLine} />
+        {mode !== "ADD_LINE" ? (
+          <MSButton
+            style={{ marginRight: "5px" }}
+            variable="miniLITE"
+            text={textButton}
+            width="65px"
+            onClick={() => {
+              setMode("ADD_LINE");
+            }}
+          />
+        ) : (
+          <>
+            <InputFields
+              initial=""
+              changeSelectValue={(newValue: string) => {
+                heandleAddLine(newValue);
+              }}
+              type="text"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"הוסף"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"בטל"}
+            </button>
+          </>
+        )}
       </div>
     </TableWrapper>
   );

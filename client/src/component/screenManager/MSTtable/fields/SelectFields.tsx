@@ -36,6 +36,6 @@ export const TableText = styled.td`
   font-weight: 500;
   line-height: 21px;
   text-align: right;
-  padding: 10px 7px;
+  // padding: 10px 7px;
   border-bottom: 3px solid #dadada;
 `;

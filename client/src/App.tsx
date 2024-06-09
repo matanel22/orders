@@ -10,7 +10,6 @@ import { ScreenManager } from "./component/screenManager";
 
 function App() {
   const [allOrders, setAllOrders] = useState(ALL_ORDERS);
-
   return (
     <Router>
       <Routes>

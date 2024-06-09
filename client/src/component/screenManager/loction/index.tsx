@@ -1,10 +1,8 @@
-
-import { Dispatch, useState } from "react";
+import { useState } from "react";
 import { MSTTable, TableColumn } from "../MSTtable";
 
-import React,{ Dispatch } from "react";
+import React, { Dispatch } from "react";
 import DataTable from "../tableRow";
-
 
 interface EventProper {
   id: string;
@@ -15,10 +13,6 @@ const LoctionTableRow: TableColumn[] = [
   {
     label: "מקום אירוע",
     columnId: "name",
-  },
-  {
-    label: "מקום אירוע",
-    columnId: "id",
   },
 ];
 const editLoction = [
@@ -41,9 +35,17 @@ export interface IPropsEventLoc {
 }
 
 export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
-
   const [searchValue, setSearchValue] = useState("");
-  const heandleLineChange = () => {};
+  const heandleLineChange = (_id: string, obj: object) => {
+    const updatedOptions = options.map((opt) => {
+      if (opt.id === _id) {
+        return { ...opt, ...obj };
+      }
+      return opt;
+    });
+    setOptions(updatedOptions);
+    console.log("Updated options:", updatedOptions);
+  };
   const heandleDelete = () => {};
   const heandleAddLine = () => {};
   return (
@@ -63,7 +65,5 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
         onChange={({ target }) => setSearchValue(target.value)}
       />
     </MSTTable>
-
-
-
+  );
 };

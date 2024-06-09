@@ -24,7 +24,16 @@ const editEvents = [
 ];
 export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
   const [searchValue, setSearchValue] = useState("");
-  const heandleLineChange = () => {};
+  const heandleLineChange = (_id: string, obj: object) => {
+    const updatedOptions = options.map((opt) => {
+      if (opt.id === _id) {
+        return { ...opt, ...obj };
+      }
+      return opt;
+    });
+    setOptions(updatedOptions);
+    console.log("Updated options:", updatedOptions);
+  };
   const heandleDelete = () => {};
   const heandleAddLine = () => {};
   return (
@@ -45,5 +54,4 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
       />
     </MSTTable>
   );
-
 };

@@ -4,12 +4,10 @@ import { IPropsItems } from "../../formIndex/hookController";
 import { MSTTable, TableColumn } from "../MSTtable";
 import DataTable from "../tableRow";
 
-
 interface IProps {
   setOptions: Dispatch<React.SetStateAction<IPropsItems[]>>;
   options: IPropsItems[];
 }
-
 
 const ItemsTableRow: TableColumn[] = [
   {
@@ -33,9 +31,27 @@ const editItems = [
 ];
 export const ViewItems = ({ setOptions, options }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
-  const heandleLineChange = () => {};
-  const heandleDelete = () => {};
-  const heandleAddLine = () => {};
+  const [cancel, setCancel] = useState<boolean | undefined>(false);
+  const heandleLineChange = (_id: string, obj: object) => {
+    const updatedOptions = options.map((opt) => {
+      if (opt.id === _id) {
+        return { ...opt, ...obj };
+      }
+      return opt;
+    });
+    setOptions(updatedOptions);
+  };
+
+  const heandleDelete = (id: string) => {
+    const delRow = options.filter((row) => {
+      return row.id !== id;
+    });
+    setOptions(delRow);
+  };
+  const handleAddLine = (obj: IPropsItems) => {
+    setOptions((prev) => [...prev, obj]);
+    console.log("Added new line:", obj);
+  };
   return (
     <MSTTable
       textButton={"הוספת פריט"}
@@ -45,8 +61,10 @@ export const ViewItems = ({ setOptions, options }: IProps) => {
       editData={editItems}
       heandleLineChange={heandleLineChange}
       heandleDelete={heandleDelete}
-      heandleAddLine={heandleAddLine}
+      heandleAddLine={handleAddLine}
       searchValue={searchValue}
+      setCancel={setCancel}
+      cancel={cancel}
     >
       <input
         value={searchValue}
@@ -54,7 +72,4 @@ export const ViewItems = ({ setOptions, options }: IProps) => {
       />
     </MSTTable>
   );
-
-
-
 };

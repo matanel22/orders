@@ -1,6 +1,6 @@
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { Dispatch, ReactNode, useEffect, useState } from "react";
 import { InputFields } from "./fields/InputFields";
-import { Buttons } from "./Buttons";
+import { MSButton } from "./MSButton";
 import { Line, TableColumn } from ".";
 import { SelectFields } from "./fields/SelectFields";
 
@@ -11,8 +11,10 @@ interface TableLineProps {
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
   heandleDelete: (id: string) => void;
-  heandleAddLine: () => void;
+  heandleAddLine: (newLine: Line) => void;
   searchValue: string;
+  setCancel?: Dispatch<React.SetStateAction<boolean | undefined>>;
+  cancel?: boolean | undefined;
   children?: ReactNode;
 }
 
@@ -25,6 +27,8 @@ export const TableLine = ({
   heandleDelete,
   searchValue,
   children,
+  setCancel,
+  cancel,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
 
@@ -36,15 +40,10 @@ export const TableLine = ({
           ))
         : editData.map((field: any, index: number) => (
             <React.Fragment key={index}>
-              {/* <SelectFields
-                changeSelectValue={heandleLineChange}
-                options={field}
-              /> */}
-
               <InputFields
                 initial={line[field.name]}
                 type={"text"}
-                changeSelectValue={(newValue: any) => {
+                changeSelectValue={(newValue: string) => {
                   const newLine = { ...line, [field.name]: newValue };
                   heandleLineChange(line.id, newLine);
                 }}
@@ -53,20 +52,22 @@ export const TableLine = ({
                 <button
                   type="button"
                   onClick={() => {
+                    setCancel?.(true);
                     setMode("");
                   }}
                 >
-                  {"בטל"}
+                  {"cancel"}
                 </button>
               </div>
               <div>
                 <button
                   type="button"
                   onClick={() => {
+                    setCancel?.(false);
                     setMode("");
                   }}
                 >
-                  {"שמירה"}
+                  {"edit"}
                 </button>
               </div>
             </React.Fragment>
@@ -74,12 +75,14 @@ export const TableLine = ({
 
       {mode !== "edit" ? (
         <td>
-          <Buttons
+          <MSButton
+            style={{ marginRight: "5px" }}
+            variable=""
+            width=""
             onClick={() => {
               setMode("edit");
             }}
             text="עדכן"
-            type={"button"}
           />
         </td>
       ) : (
