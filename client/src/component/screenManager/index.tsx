@@ -27,10 +27,9 @@ export const ScreenManager = () => {
           onClick={() => {
             changeItem("items");
           }}
-          // text={"items"}
         >
           {" "}
-          {"items"}
+          {"שם פריט"}
         </StyledButton>
 
         <StyledButton
@@ -38,10 +37,9 @@ export const ScreenManager = () => {
           onClick={() => {
             changeItem("ViewLoction");
           }}
-          // text={"ViewLoction"}
         >
           {" "}
-          {"ViewLoction"}
+          {"שם מקום"}
         </StyledButton>
 
         <StyledButton
@@ -49,16 +47,22 @@ export const ScreenManager = () => {
           onClick={() => {
             changeItem("ViewEventType");
           }}
-          // text={"ViewEventType"}
         >
-          {"ViewEventType"}
+          {"סוג אירוע"}
         </StyledButton>
         {path === "items" ? (
-          <ViewItems setOptions={setAllItems} options={allItems} />
+          <ViewItems
+            setOptions={setAllItems}
+            options={allItems}
+            allEvent={allEvent}
+            allLoction={allLoction}
+          />
         ) : path === "ViewLoction" ? (
-          <ViewLoction options={allEvent} setOptions={setAllEvent} />
+          <ViewLoction options={allLoction} setOptions={setAllLoction} />
+        ) : path === "ViewEventType" ? (
+          <ViewEvent options={allEvent} setOptions={setAllEvent} />
         ) : (
-          <ViewEvent options={allLoction} setOptions={setAllLoction} />
+          ""
         )}
       </div>
     </DefaultContainer>

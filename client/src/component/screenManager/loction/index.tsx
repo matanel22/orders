@@ -4,7 +4,7 @@ import { MSTTable, TableColumn } from "../MSTtable";
 import React, { Dispatch } from "react";
 import DataTable from "../tableRow";
 
-interface EventProper {
+export interface EventProper {
   id: string;
   name: string;
   comments: string;
@@ -47,7 +47,17 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
     console.log("Updated options:", updatedOptions);
   };
   const heandleDelete = () => {};
-  const heandleAddLine = () => {};
+  const heandleAddLine = (newName: string) => {
+    const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+    // Add the unique ID to the object
+    const newObj = { name: newName, id: uniqueId, comments: "" };
+
+    // Update the state with the new object
+    setOptions((prev) => [...prev, newObj]);
+
+    console.log("Added new line:", newObj);
+  };
   return (
     <MSTTable
       textButton={"הוספת מיקום אירוע"}
@@ -57,7 +67,7 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
       editData={editLoction}
       heandleLineChange={heandleLineChange}
       heandleDelete={heandleDelete}
-      heandleAddLine={heandleAddLine}
+      handleAddLine={heandleAddLine}
       searchValue={searchValue}
     >
       <input

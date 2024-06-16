@@ -11,10 +11,9 @@ interface TableLineProps {
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
   heandleDelete: (id: string) => void;
-  heandleAddLine: (newLine: Line) => void;
+  handleAddLine: (newLine: Line) => void;
   searchValue: string;
-  setCancel?: Dispatch<React.SetStateAction<boolean | undefined>>;
-  cancel?: boolean | undefined;
+
   children?: ReactNode;
 }
 
@@ -27,57 +26,69 @@ export const TableLine = ({
   heandleDelete,
   searchValue,
   children,
-  setCancel,
-  cancel,
+  handleAddLine,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
 
   return (
     <tr>
-      {mode === ""
-        ? tableHeadRow.map((column, index) => (
-            <td key={index}>{line[column.columnId]}</td>
-          ))
-        : editData.map((field: any, index: number) => (
+      {mode === "" ? (
+        tableHeadRow.map((column, index) => (
+          <td key={index}>{line[column.columnId]}</td>
+        ))
+      ) : (
+        <>
+          {editData.map((field: any, index: number) => (
             <React.Fragment key={index}>
-              <InputFields
-                initial={line[field.name]}
-                type={"text"}
-                changeSelectValue={(newValue: string) => {
-                  const newLine = { ...line, [field.name]: newValue };
-                  heandleLineChange(line.id, newLine);
-                }}
-              />
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCancel?.(true);
-                    setMode("");
+              {field.edit === "input" ? (
+                <InputFields
+                  initial={line[field.name]}
+                  type={"text"}
+                  changeSelectValue={(newValue: string) => {
+                    const newLine = { ...line, [field.name]: newValue };
+                    heandleLineChange(line.id, newLine);
                   }}
-                >
-                  {"cancel"}
-                </button>
-              </div>
-              <div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setCancel?.(false);
-                    setMode("");
+                />
+              ) : (
+                <SelectFields
+                  initial={line[field.name]}
+                  changeSelectValue={(newValue: string) => {
+                    const newLine = { ...line, [field.name]: newValue };
+                    heandleLineChange(line.id, newLine);
                   }}
-                >
-                  {"edit"}
-                </button>
-              </div>
+                  options={field.options}
+                />
+              )}
             </React.Fragment>
           ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"ביטול"}
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"שמירה"}
+            </button>
+          </div>
+        </>
+      )}
 
       {mode !== "edit" ? (
         <td>
           <MSButton
             style={{ marginRight: "5px" }}
-            variable=""
+            variable="LITE"
             width=""
             onClick={() => {
               setMode("edit");

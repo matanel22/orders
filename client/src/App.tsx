@@ -10,20 +10,25 @@ import { ScreenManager } from "./component/screenManager";
 
 function App() {
   const [allOrders, setAllOrders] = useState(ALL_ORDERS);
+
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={<AllOrders options={allOrders} setOptions={setAllOrders} />}
-        />
-        <Route
-          path="/test"
-          element={<AppForm options={allOrders} setOptions={setAllOrders} />}
-        />
-        <Route path="/managerSrceen/:pages" element={<ScreenManager />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AllOrders options={allOrders} setOptions={setAllOrders} />
+            }
+          />
+          <Route
+            path="/test"
+            element={<AppForm options={allOrders} setOptions={setAllOrders} />}
+          />
+          <Route path="/managerSrceen/:pages" element={<ScreenManager />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
