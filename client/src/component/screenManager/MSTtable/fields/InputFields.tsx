@@ -15,14 +15,14 @@ export const InputFields = ({
   initial,
 }: IPropsInput) => {
   const [value, setValue] = useState(initial);
-  useEffect(() => {
-    changeSelectValue(value);
-  }, [value]);
+
   return (
     <TableText>
       <input
+        value={value}
         type={type}
         onChange={({ target }) => {
+          changeSelectValue(target.value);
           setValue(target.value);
         }}
       />

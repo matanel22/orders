@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useState } from "react";
+import React, { Dispatch, ReactNode, useEffect, useState } from "react";
 import { InputFields } from "./fields/InputFields";
-import { Buttons } from "./Buttons";
+import { MSButton } from "./MSButton";
 import { Line, TableColumn } from ".";
+import { SelectFields } from "./fields/SelectFields";
 
 interface TableLineProps {
   headLine?: any;
@@ -10,8 +11,9 @@ interface TableLineProps {
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
   heandleDelete: (id: string) => void;
-  heandleAddLine: () => void;
+  handleAddLine: (newLine: Line) => void;
   searchValue: string;
+
   children?: ReactNode;
 }
 
@@ -24,38 +26,79 @@ export const TableLine = ({
   heandleDelete,
   searchValue,
   children,
+  handleAddLine,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
-  useEffect(() => {
-    console.log("editData", editData);
-  }, []);
+
   return (
     <tr>
-      {tableHeadRow.map((column, index) => (
-        <td key={index}>{line[column.columnId]}</td>
-      ))}
+      {mode === "" ? (
+        tableHeadRow.map((column, index) => (
+          <td key={index}>{line[column.columnId]}</td>
+        ))
+      ) : (
+        <>
+          {editData.map((field: any, index: number) => (
+            <React.Fragment key={index}>
+              {field.edit === "input" ? (
+                <InputFields
+                  initial={line[field.name]}
+                  type={"text"}
+                  changeSelectValue={(newValue: string) => {
+                    const newLine = { ...line, [field.name]: newValue };
+                    heandleLineChange(line.id, newLine);
+                  }}
+                />
+              ) : (
+                <SelectFields
+                  initial={line[field.name]}
+                  changeSelectValue={(newValue: string) => {
+                    const newLine = { ...line, [field.name]: newValue };
+                    heandleLineChange(line.id, newLine);
+                  }}
+                  options={field.options}
+                />
+              )}
+            </React.Fragment>
+          ))}
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"ביטול"}
+            </button>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"שמירה"}
+            </button>
+          </div>
+        </>
+      )}
 
-      {/* {editData.map((field: any, index: number) => (
-        <td key={index}>
-          <InputFields
-            initial={line[field.name]}
-            type={"text"}
-            changeSelectValue={(newValue: any) => {
-              const newLine = { ...line, [field.name]: newValue };
-              heandleLineChange(line.id, newLine);
+      {mode !== "edit" ? (
+        <td>
+          <MSButton
+            style={{ marginRight: "5px" }}
+            variable="LITE"
+            width=""
+            onClick={() => {
+              setMode("edit");
             }}
+            text="עדכן"
           />
         </td>
-      ))} */}
-      <td>
-        <Buttons
-          onClick={() => {
-            setMode(null);
-          }}
-          text="עדכן"
-          type={"button"}
-        />
-      </td>
+      ) : (
+        ""
+      )}
     </tr>
   );
 };

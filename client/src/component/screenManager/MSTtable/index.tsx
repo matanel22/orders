@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+import React, { Dispatch, ReactNode, useEffect, useState } from "react";
 import { TableLine } from "./TableLine";
 import styled from "styled-components";
-import { Buttons } from "./Buttons";
+import { MSButton } from "./MSButton";
+import { InputFields } from "./fields/InputFields";
+import { AddLineComponent } from "./fields/InputAddLine";
 export interface TableColumn {
   columnId: string;
   label: string;
@@ -17,10 +19,12 @@ interface MSTTableProps {
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
   heandleDelete: (id: string) => void;
-  heandleAddLine: () => void;
+  handleAddLine: any;
   searchValue: string;
   children?: ReactNode;
   textButton: string;
+  setValueSelect?: any;
+  valueSelect?: any;
 }
 
 export const MSTTable = ({
@@ -31,10 +35,14 @@ export const MSTTable = ({
   heandleLineChange,
   heandleDelete,
   searchValue,
-  heandleAddLine,
+  handleAddLine,
   children,
   textButton,
+  valueSelect,
+  setValueSelect,
 }: MSTTableProps) => {
+  const [mode, setMode] = useState("");
+  const [inputValue, setInputValue] = useState();
   return (
     <TableWrapper>
       <div>{headLine}</div>
@@ -49,22 +57,57 @@ export const MSTTable = ({
             </tr>
           </thead>
           <tbody>
-            {lines.map((line) => (
-              <TableLine
-                key={line.id}
-                tableHeadRow={tableHeadRow}
-                editData={editData}
-                headLine={headLine}
-                heandleAddLine={heandleAddLine}
-                heandleDelete={heandleDelete}
-                heandleLineChange={heandleLineChange}
-                line={line}
-                searchValue={searchValue}
-              />
+            {lines.map((line, index) => (
+              <React.Fragment key={index}>
+                <TableLine
+                  key={line.id}
+                  tableHeadRow={tableHeadRow}
+                  editData={editData}
+                  headLine={headLine}
+                  handleAddLine={handleAddLine}
+                  heandleDelete={heandleDelete}
+                  heandleLineChange={heandleLineChange}
+                  line={line}
+                  searchValue={searchValue}
+                />
+              </React.Fragment>
             ))}
           </tbody>
         </table>
-        <Buttons type="button" text={textButton} onClick={heandleAddLine} />
+        {mode !== "ADD_LINE" ? (
+          <MSButton
+            style={{ marginRight: "5px" }}
+            variable="miniLITE"
+            text={textButton}
+            width="65px"
+            onClick={() => {
+              setMode("ADD_LINE");
+            }}
+          />
+        ) : (
+          <>
+            <AddLineComponent
+              editData={editData}
+              AddLineText={textButton}
+              handleAddLine={handleAddLine}
+              type={"text"}
+              setInputValue={setInputValue}
+              inputValue={inputValue}
+              setMode={setMode}
+              valueSelect={valueSelect}
+              setValueSelect={setValueSelect}
+            />
+
+            <button
+              type="button"
+              onClick={() => {
+                setMode("");
+              }}
+            >
+              {"בטל"}
+            </button>
+          </>
+        )}
       </div>
     </TableWrapper>
   );
@@ -72,7 +115,7 @@ export const MSTTable = ({
 const TableWrapper = styled.div`
   //   max-width: 1200px;
   //   max-height: 800px;
-  width: 50%;
+  width: 80%;
   height: 100%;
   background-color: #fffff;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
