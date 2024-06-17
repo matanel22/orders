@@ -34,6 +34,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
     return (
       <div className="flex flex-col">
         <select
+          style={{ overflow: "scroll" }}
           name={name}
           ref={ref}
           value={value}

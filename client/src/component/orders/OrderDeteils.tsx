@@ -1,50 +1,28 @@
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-} from "@mui/material";
-import TableRow from "@mui/material/TableRow";
-import jsonData from "../jsonData/data.json";
-import {
-  ButtonArrow,
-  Container,
-  DefultContainer,
-} from "../style/tableOrders.style";
-import { IPropsAdddNewOrder, OrderIProps } from "../intarface";
-import leftArrow from "../../svg/leftArrow.svg";
 
-import MoreDetailOrder from "./MoreDetailOrder";
-import { Order_Key } from "../intarface/ArrayOfProject";
-import AddNewOrder from "./addNewOrder";
-import axios from "axios";
-import Card from "../Cards";
-import { DefaultContainer } from "../../defultContainer";
-import AppForm from "../formIndex/hookController";
+import jsonData from "../jsonData/data.json";
+
+import { IPropsAdddNewOrder, OrderIProps } from "../intarface";
+
 import SearchComponent from "../header/search";
 
-const OrderDeteils = ({
-  setOpenAddNewOrder,
-  openAddNewOrder,
-}: IPropsAdddNewOrder) => {
+import { ModalDegine } from "./modal";
+
+import DeteilsCard from "../Cards/DetailsCard";
+import styled from "styled-components";
+import { FormOptions } from "../formIndex/hookController";
+
+const OrderDeteils = ({ options, setOptions }: FormOptions) => {
   const jsonDataString = JSON.stringify(jsonData, null, 2);
-  const tempJsonData = JSON.parse(jsonDataString); // Parse the JSON string back to an object
+  const tempJsonData = JSON.parse(jsonDataString);
   const tempArray = tempJsonData.data.results;
   const [showMoreDatail, setShowMoreDetail] = useState({
     stap: false,
     openIndex: 0,
   });
-  const [allOrders, setAllOrders] = useState<OrderIProps[]>(tempArray);
-  // useEffect(()=>{
-  // const url="http://localhost:3001/api/sendData"
-  // axios.get(url).then(({data})=>{
-  // console.log(data);
-  // setAllOrders(data.results)
-
-  // })
-  // },[])
+  useEffect(() => {
+    console.log(options);
+  }, [options]);
   const handleRowClick = (order: OrderIProps, index: number) => {
     setShowMoreDetail({
       ...showMoreDatail,
@@ -54,101 +32,45 @@ const OrderDeteils = ({
   };
 
   return (
-    <div>
-      {/* {openAddNewOrder && (
-        <AddNewOrder
-          setOpenAddNewOrder={setOpenAddNewOrder}
-          allOrders={allOrders}
-          setAllOrders={setAllOrders}
-        />
-      )} */}
-      {/* <TableContainer
-        sx={{
-          direction: "rtl",
-        }}
-      >
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow
-              sx={{
-                bgcolor: "rgba(0, 128, 0, 0.3);",
-                height: "0.1rem",
-                "& th": {
-                  fontSize: "1rem",
-                },
-              }}
-            >
-              {Order_Key.map((order) => (
-                <TableCell align="right" key={order.key}>
-                  {order.key}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody> */}
-      {/* <Card items={allOrders}></Card> */}
-      {/* <AppForm /> */}
-      {/* <SearchComponent /> */}
+    <ModalDegine>
+      <SearchComponent items={options} state={setOptions} />
 
-      {/* {allOrders.map((order, index: number) => (
-              <TableRow
-                key={order.id}
-                onClick={() => handleRowClick(order, index)}
-                style={{ cursor: "pointer" }}
-                sx={{
-                  border: "1px solid rgba(0, 128, 0, 0.3)",
-                  "&:hover": {
-                    zIndex: "1",
-                    fontSize: "5rem",
-                    cursor: "pointer",
-                    backgroundColor: "rgba(0, 128, 0, 0.3)",
-                  },
-                }}
-              >
-                <TableCell sx={{ borderBottom: "none" }} align="right">
-                  {order.customer}
-                </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="right">
-                  {new Date(order.date).toLocaleDateString()}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    borderBottom: "none",
-                    color:
-                      order.status === "מאושר"
-                        ? "green"
-                        : order.status === "בוצע"
-                        ? "dodgerblue"
-                        : order.status === "ממתין לאישור"
-                        ? "deeppink"
-                        : "inherit",
-                  }}
-                  align="right"
-                >
-                  {order.status}
-                </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="right">
-                  {order.branch}
-                </TableCell>
-                <TableCell sx={{ borderBottom: "none" }} align="right">
-                  {order.priceNumber}
-                </TableCell>
-                <TableCell>
-                  <ButtonArrow src={leftArrow} width={"20px"} />
-                </TableCell>
-                {showMoreDatail.stap && showMoreDatail.openIndex === index && (
-                  <MoreDetailOrder
-                    setAllOrders={setAllOrders}
-                    MorDetailOfOrder={order}
-                  ></MoreDetailOrder>
-                )}
-              </TableRow>
-            ))} */}
-      {/* </TableBody>
-        </Table>
-      </TableContainer> */}
-    </div>
+      {options.map((order) => {
+        return (
+          <div
+            key={order.id}
+            style={{
+              height: "30vh",
+              boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
+              backgroundColor: "#6cba65",
+              width: "80vw",
+              margin: "0 auto",
+              direction: "rtl",
+              marginTop: "1rem",
+              borderRadius: "1rem",
+            }}
+          >
+            <div style={{ height: "100%" }}>
+              <DeteilsCard
+                id={order.id}
+                name={order.name}
+                eventType={order.eventType}
+                locationType={order.locationType}
+                statusId={order.statusId}
+                orderDate={order.orderDate}
+                orderTime={order.orderTime}
+                items={order.items}
+              />
+            </div>
+          </div>
+        );
+      })}
+    </ModalDegine>
   );
 };
 
 export default OrderDeteils;
+
+export const Span = styled.span`
+  font-size: 1.2rem;
+`;

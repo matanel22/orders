@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 export interface InputProps {
   style?: React.CSSProperties;
@@ -40,17 +41,15 @@ export const InputHF = ({
       {disabled && (
         <div className="w-full h-full bg-opacity-50 cursor-not-allowed absolute top-0 left-0 bg-gray-200"></div>
       )}
-
-      <input
+      <InputDegine
         data-cy={name}
-      
         placeholder={placeholder}
         ref={inputRef}
         maxLength={maxLength}
         readOnly={disabled}
         type={type}
         autoComplete={autoComplete}
-        className="border-none outline-none py-1 rtl:pr-2 ltr:pl-2 w-full"
+        className=""
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -58,3 +57,22 @@ export const InputHF = ({
     </div>
   );
 };
+
+
+export const InputDegine=styled.input`
+  display: flex;
+  flex-direction: column;
+  /* padding: 10px 10px 8px; */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 17px;
+  transition: 0.3s;
+    &::placeholder {
+      color: #ccc;
+      opacity: 1;
+    }
+    &:focus-within {
+    border-color: #8c7569;
+    }
+`

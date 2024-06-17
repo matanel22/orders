@@ -1,3 +1,5 @@
+import { Span } from "../orders/OrderDeteils";
+
 interface IPropsItems {
   id: string;
   name: string;
@@ -6,10 +8,10 @@ interface IPropsItems {
 
 const ItemsDetails = ({ id, name, amount }: IPropsItems) => {
   return (
-    <ul key={id}>
-      <li>{name}</li>
-      <li>{amount}</li>
-    </ul>
+    <div style={{display:"flex"}} key={id}>
+      <div><Span style={{}}>שם פריט:</Span>{name}</div>
+      <div><Span>כמות:</Span>{amount}</div>
+    </div>
   );
 };
 

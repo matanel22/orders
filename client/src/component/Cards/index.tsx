@@ -16,7 +16,7 @@ const Card = <T extends Record<string, any>>({
 }: ArrayComponentProps<T>) => {
   const [show, setShow] = useState(false);
   return (
-    <div style={{ width: "100vw", maxWidth: "400px" }}>
+    <div style={{display:"flex"}}>
       {options.map((opt, index) => (
         <DeteilsCard
           id={opt.id}

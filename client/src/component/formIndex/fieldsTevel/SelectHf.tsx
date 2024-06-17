@@ -5,6 +5,7 @@ import { IPropsItems } from "../hookController";
 import { InputNumberField } from "./InputNumberField";
 import ButtonLoading from "../../UI/ButtonLoading";
 import { required } from "../../validates";
+import styled from "styled-components";
 
 export interface DynamicSelectFieldsProps {
   name: string;
@@ -34,13 +35,14 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
               <SelectField
                 {...field}
                 options={options}
-                placeholder="Select a value"
+                placeholder="בחר פריט"
                 validate={{
                   required: (value: string) => required(value),
                 }}
               />
             )}
           />
+          <div style={{paddingRight:"2rem"}}>
           <InputNumberField
             name={`${name}[${index}].amount`}
             defaultValue={""}
@@ -48,6 +50,7 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
               required: (value: string) => (value ? true : "שדה זה הינו חובה"),
             }}
           />
+          </div>
           <ButtonLoading
             textButton="x"
             type="button"
@@ -57,16 +60,34 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
           />
         </div>
       ))}
-      <button
+      <ButtonDegine
         type="button"
         onClick={() => {
           append({});
         }}
       >
         הוספת שורה
-      </button>
+      </ButtonDegine>
     </div>
   );
 };
 
 export default DynamicSelectFields;
+
+export const ButtonDegine=styled.button`
+  color: darken(#8c7569, 5%);
+    font-family: "Nunito", sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+    border: 0;
+    outline: 0;
+    padding: 10px 40px;
+    border-radius: 10px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.16);
+    transition: 0.3s;
+    &:hover {
+      border-color: rgba(113, 108, 150, 0.903);
+      background: rgba(#fff, 0.8);
+    }
+`

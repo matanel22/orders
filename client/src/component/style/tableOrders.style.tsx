@@ -14,19 +14,7 @@ export const Card = styled.div`
   margin: 10px;
   width: 200px;
 `;
-export const Container = styled.div`
-  // padding: 10px;
-  // margin-right: 15%;
-  // margin-left: 15%;
-  // box-shadow: 10px 5px 5px rgba(0, 128, 0, 0.3);
-  // ${css`
-    //   @media (max-width: 768px) {
-    //     padding: 5px;
-    //     width: 100%;
-    //     overflow: hidden;
-    //   }
-  `}
-`;
+
 export const HeaderWarper = styled.div`
   top: 0;
   padding: 1rem 0rem 1.5rem 0rem;
@@ -43,11 +31,11 @@ export const HeaderWarper = styled.div`
 const ButtonBsic = styled.button`
 display:flex;
 align-items:center;
-text-align center;
+text-align :center;
 justify-content: center;
 background:rgba(0, 128, 0, 0.3);
 box-sizing: border-box;
-cursor :pointer
+cursor :pointer;
 font-size:1rem;
 font-weight:550;
 `;
@@ -101,22 +89,15 @@ export const addNewOrderStyle = {
   dirction: "rtl",
 };
 export const SearchOrder = styled.input`
-  height: 2rem;
+  height: "2rem";
   display: flex;
   direction: rtl;
-  border: 1px solid rgba(0, 128, 0, 0.3);
+  border: "1px solid rgba(0, 128, 0, 0.3)";
 `;
 export const ButtonArrow = styled.img``;
 export const CardContainer = styled.div`
-  /* Adjust as needed */
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  // direction: rtl;
-  margin: 20px auto;
-  border: groove;
-  width: 70%;
+    height: 100%;
+
 `;
 
 export const CardTitle = styled.h2`
