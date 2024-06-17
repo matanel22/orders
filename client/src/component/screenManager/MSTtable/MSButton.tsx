@@ -5,7 +5,7 @@ interface IPropsButton {
   text: string;
   width: string;
   style?: React.CSSProperties;
-  onClick: any;
+  onClick: () => void;
 }
 
 export const MSButton = ({

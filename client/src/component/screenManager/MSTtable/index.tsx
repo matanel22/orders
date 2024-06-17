@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { MSButton } from "./MSButton";
 import { InputFields } from "./fields/InputFields";
 import { AddLineComponent } from "./fields/InputAddLine";
+import OnClickOutsideModal from "../../modals";
 export interface TableColumn {
   columnId: string;
   label: string;
@@ -18,7 +19,7 @@ interface MSTTableProps {
   lines: Line[];
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
-  heandleDelete: (id: string) => void;
+  handleDelete: (id: string) => void;
   handleAddLine: any;
   searchValue: string;
   children?: ReactNode;
@@ -33,7 +34,7 @@ export const MSTTable = ({
   lines,
   editData,
   heandleLineChange,
-  heandleDelete,
+  handleDelete,
   searchValue,
   handleAddLine,
   children,
@@ -43,6 +44,10 @@ export const MSTTable = ({
 }: MSTTableProps) => {
   const [mode, setMode] = useState("");
   const [inputValue, setInputValue] = useState();
+  const [openHistoryModal, setOpenHistoryModal] = useState(false);
+  const reset = () => {
+    setValueSelect({});
+  };
   return (
     <TableWrapper>
       <div>{headLine}</div>
@@ -65,7 +70,7 @@ export const MSTTable = ({
                   editData={editData}
                   headLine={headLine}
                   handleAddLine={handleAddLine}
-                  heandleDelete={heandleDelete}
+                  handleDelete={handleDelete}
                   heandleLineChange={heandleLineChange}
                   line={line}
                   searchValue={searchValue}
@@ -74,6 +79,7 @@ export const MSTTable = ({
             ))}
           </tbody>
         </table>
+
         {mode !== "ADD_LINE" ? (
           <MSButton
             style={{ marginRight: "5px" }}
@@ -85,28 +91,17 @@ export const MSTTable = ({
             }}
           />
         ) : (
-          <>
-            <AddLineComponent
-              editData={editData}
-              AddLineText={textButton}
-              handleAddLine={handleAddLine}
-              type={"text"}
-              setInputValue={setInputValue}
-              inputValue={inputValue}
-              setMode={setMode}
-              valueSelect={valueSelect}
-              setValueSelect={setValueSelect}
-            />
-
-            <button
-              type="button"
-              onClick={() => {
-                setMode("");
-              }}
-            >
-              {"בטל"}
-            </button>
-          </>
+          <AddLineComponent
+            editData={editData}
+            AddLineText={textButton}
+            handleAddLine={handleAddLine}
+            type={"text"}
+            setInputValue={setInputValue}
+            inputValue={inputValue}
+            setMode={setMode}
+            valueSelect={valueSelect}
+            setValueSelect={setValueSelect}
+          />
         )}
       </div>
     </TableWrapper>
@@ -124,4 +119,5 @@ const TableWrapper = styled.div`
   dispaly: flex;
   flex-dirction: colonm;
   margin: 0 auto;
+  margin-top: 2rem;
 `;

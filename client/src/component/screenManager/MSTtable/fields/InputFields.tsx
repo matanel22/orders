@@ -14,18 +14,29 @@ export const InputFields = ({
   type,
   initial,
 }: IPropsInput) => {
-  const [value, setValue] = useState(initial);
-
+  // const [value, setValue] = useState(initial);
+  const handleBlur = () => {
+    console.log("Input blurred", initial);
+  };
   return (
     <TableText>
-      <input
-        value={value}
+      <Input
+        value={initial}
         type={type}
         onChange={({ target }) => {
           changeSelectValue(target.value);
-          setValue(target.value);
+          // setValue(target.value);
         }}
+        onBlur={handleBlur}
       />
     </TableText>
   );
 };
+const Input = styled.input`
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  width: 80px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;

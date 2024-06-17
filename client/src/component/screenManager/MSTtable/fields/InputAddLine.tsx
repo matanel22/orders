@@ -1,6 +1,7 @@
 import React, { Dispatch, useEffect, useState } from "react";
 import styled from "styled-components";
 import { SelectFields } from "./SelectFields";
+import { MSButton } from "../MSButton";
 
 // Styled components
 interface IProps {
@@ -68,36 +69,51 @@ export const AddLineComponent = ({
             );
           })
         : ""}
+      <div style={{ display: "flex" }}>
+        <StyledButton
+          onClick={() => {
+            valueSelect
+              ? handleAddLine(valueSelect)
+              : handleAddLine(inputValue);
 
-      <StyledButton
-        onClick={() => {
-          valueSelect ? handleAddLine(valueSelect) : handleAddLine(inputValue);
-          setMode("");
-        }}
-      >
-        {AddLineText}
-      </StyledButton>
+            setMode("");
+          }}
+        >
+          {AddLineText}
+        </StyledButton>
+        <MSButton
+          onClick={() => {
+            setValueSelect({});
+            setMode("");
+          }}
+          text="בטל"
+          variable="FULL"
+          width=""
+        />
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  // position: fixed;
+
+  // margin-top: 1rem;
 `;
 
 const Input = styled.input`
-  padding: 10px;
+  padding: 8px;
   font-size: 16px;
   margin-bottom: 20px;
-  width: 150px;
+  width: 100px;
   border: 1px solid #ccc;
   border-radius: 4px;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   background-color: #4caf50;
   border: none;
   color: white;
@@ -116,19 +132,4 @@ const StyledButton = styled.button`
     background-color: #3e8e41;
     transform: scale(0.95);
   }
-`;
-
-const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
-`;
-
-const ListItem = styled.li`
-  background-color: #f9f9f9;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 300px;
-  text-align: left;
 `;

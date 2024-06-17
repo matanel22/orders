@@ -35,7 +35,12 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
     setOptions(updatedOptions);
     console.log("Updated options:", updatedOptions);
   };
-  const heandleDelete = () => {};
+  const handleDelete = (id: string) => {
+    const delRow = options.filter((row) => {
+      return row.id !== id;
+    });
+    setOptions(delRow);
+  };
   const heandleAddLine = (newName: string) => {
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
@@ -50,12 +55,12 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
   return (
     <MSTTable
       textButton={"הוספת סוג אירוע"}
-      headLine={"View Loction"}
+      headLine={"חיפוש..."}
       tableHeadRow={EventTableRow}
       lines={options}
       editData={editEvents}
       heandleLineChange={heandleLineChange}
-      heandleDelete={heandleDelete}
+      handleDelete={handleDelete}
       handleAddLine={heandleAddLine}
       searchValue={searchValue}
     >

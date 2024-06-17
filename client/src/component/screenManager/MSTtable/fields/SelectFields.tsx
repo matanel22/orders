@@ -24,7 +24,17 @@ export const SelectFields = ({
   handleChange,
 }: IPropsSelect) => {
   const [value, setValue] = useState(initial);
+  const handelValidation = () => {
+    const formFields = { ...field };
 
+    const formErrors: any = {};
+    let formIsValid = true;
+
+    if (!formFields[field.name]) {
+      formIsValid = false;
+      formErrors[field.name] = "Cannot be empty";
+    }
+  };
   return (
     <TableText>
       {mode !== "ADD" ? (
@@ -32,11 +42,11 @@ export const SelectFields = ({
           value={value}
           onChange={({ target }) => {
             setValue(target.value);
-
             changeSelectValue(target.value);
           }}
         >
-          {value ? <option>{value}</option> : ""}
+          {<option>{"יש לבחור"}</option>}
+
           {options.length > 0
             ? options.map((opt: any, index: number) => {
                 return (
@@ -55,6 +65,7 @@ export const SelectFields = ({
               handleChange(event, field.name);
             }}
           >
+            {<option>{"יש לבחור"}</option>}
             {options.length > 0
               ? options.map((opt: any, index: number) => {
                   return (

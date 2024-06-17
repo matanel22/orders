@@ -92,8 +92,6 @@ export const ViewItems = ({
   }, []);
 
   const heandleLineChange = (_id: string, obj: object) => {
-    console.log(options);
-
     const updatedOptions = options.map((opt) => {
       if (opt.id === _id) {
         return { ...opt, ...obj };
@@ -103,7 +101,7 @@ export const ViewItems = ({
     setOptions(updatedOptions);
   };
 
-  const heandleDelete = (id: string) => {
+  const handleDelete = (id: string) => {
     const delRow = options.filter((row) => {
       return row.id !== id;
     });
@@ -112,7 +110,6 @@ export const ViewItems = ({
   const handleAddLine = (obj: IPropsItems) => {
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    // Add the unique ID to the object
     const newObj = { ...obj, id: uniqueId };
     setOptions((prev) => [...prev, newObj]);
     console.log("Added new line:", obj);
@@ -126,7 +123,7 @@ export const ViewItems = ({
       lines={options}
       editData={editItems}
       heandleLineChange={heandleLineChange}
-      heandleDelete={heandleDelete}
+      handleDelete={handleDelete}
       handleAddLine={handleAddLine}
       searchValue={searchValue}
       valueSelect={valueSelect}

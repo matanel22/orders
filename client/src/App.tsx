@@ -25,7 +25,7 @@ function App() {
             path="/test"
             element={<AppForm options={allOrders} setOptions={setAllOrders} />}
           />
-          <Route path="/managerSrceen/:pages" element={<ScreenManager />} />
+          <Route path="/managerSrceen" element={<ScreenManager />} />
         </Routes>
       </Router>
     </>

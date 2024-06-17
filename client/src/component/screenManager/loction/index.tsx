@@ -46,7 +46,12 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
     setOptions(updatedOptions);
     console.log("Updated options:", updatedOptions);
   };
-  const heandleDelete = () => {};
+  const handleDelete = (id: string) => {
+    const delRow = options.filter((row) => {
+      return row.id !== id;
+    });
+    setOptions(delRow);
+  };
   const heandleAddLine = (newName: string) => {
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
@@ -61,12 +66,12 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
   return (
     <MSTTable
       textButton={"הוספת מיקום אירוע"}
-      headLine={"View Loction"}
+      headLine={"חיפוש..."}
       tableHeadRow={LoctionTableRow}
       lines={options}
       editData={editLoction}
       heandleLineChange={heandleLineChange}
-      heandleDelete={heandleDelete}
+      handleDelete={handleDelete}
       handleAddLine={heandleAddLine}
       searchValue={searchValue}
     >

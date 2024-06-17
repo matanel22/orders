@@ -3,66 +3,57 @@ import { DefaultContainer } from "../../defultContainer";
 import { ViewItems } from "./items";
 import { ViewEvent } from "./events";
 import { ViewLoction } from "./loction";
-import { useNavigate, useParams } from "react-router-dom";
+import { Route, useNavigate, useParams } from "react-router-dom";
 import { Items, EventType, LoctionType } from "../formIndex/hookController";
-
 import styled from "styled-components";
+enum Views {
+  ITEMS = "items",
+  VIEW_LOCTION = "ViewLoction",
+  VIEW_EVENT_TYPE = "ViewEventType",
+}
+
 export const ScreenManager = () => {
-  const [path, setPath] = useState("");
+  const [currentView, setCurrentView] = useState<Views | null>(null);
   const [allItems, setAllItems] = useState(Items);
   const [allEvent, setAllEvent] = useState(EventType);
   const [allLoction, setAllLoction] = useState(LoctionType);
-  const navigate = useNavigate();
 
-  const changeItem = (newItemId: string) => {
-    setPath(newItemId);
-    navigate(`/managerSrceen/${newItemId}`, { replace: true });
+  const changeView = (view: Views) => {
+    setCurrentView(view);
   };
 
   return (
     <DefaultContainer background={true}>
       <div style={{ direction: "rtl" }}>
+        <StyledButton type="button" onClick={() => changeView(Views.ITEMS)}>
+          שם פריט
+        </StyledButton>
         <StyledButton
           type="button"
-          onClick={() => {
-            changeItem("items");
-          }}
+          onClick={() => changeView(Views.VIEW_LOCTION)}
         >
-          {" "}
-          {"שם פריט"}
+          שם מקום
+        </StyledButton>
+        <StyledButton
+          type="button"
+          onClick={() => changeView(Views.VIEW_EVENT_TYPE)}
+        >
+          סוג אירוע
         </StyledButton>
 
-        <StyledButton
-          type="button"
-          onClick={() => {
-            changeItem("ViewLoction");
-          }}
-        >
-          {" "}
-          {"שם מקום"}
-        </StyledButton>
-
-        <StyledButton
-          type="button"
-          onClick={() => {
-            changeItem("ViewEventType");
-          }}
-        >
-          {"סוג אירוע"}
-        </StyledButton>
-        {path === "items" ? (
+        {currentView === Views.ITEMS && (
           <ViewItems
             setOptions={setAllItems}
             options={allItems}
             allEvent={allEvent}
             allLoction={allLoction}
           />
-        ) : path === "ViewLoction" ? (
+        )}
+        {currentView === Views.VIEW_LOCTION && (
           <ViewLoction options={allLoction} setOptions={setAllLoction} />
-        ) : path === "ViewEventType" ? (
+        )}
+        {currentView === Views.VIEW_EVENT_TYPE && (
           <ViewEvent options={allEvent} setOptions={setAllEvent} />
-        ) : (
-          ""
         )}
       </div>
     </DefaultContainer>
@@ -91,4 +82,22 @@ const StyledButton = styled.button`
     background-color: #3e8e41; /* Even darker green on click */
     transform: scale(0.95); /* Slightly smaller on click */
   }
+`;
+
+const Wrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  background: #f8f8f8;
+  overflow-y: hidden;
+`;
+
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;

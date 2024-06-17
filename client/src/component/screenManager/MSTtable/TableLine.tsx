@@ -10,7 +10,7 @@ interface TableLineProps {
   line: Line;
   editData: any;
   heandleLineChange: (id: string, newLine: Line) => void;
-  heandleDelete: (id: string) => void;
+  handleDelete: (id: string) => void;
   handleAddLine: (newLine: Line) => void;
   searchValue: string;
 
@@ -23,7 +23,7 @@ export const TableLine = ({
   line,
   editData,
   heandleLineChange,
-  heandleDelete,
+  handleDelete,
   searchValue,
   children,
   handleAddLine,
@@ -85,15 +85,25 @@ export const TableLine = ({
       )}
 
       {mode !== "edit" ? (
-        <td>
+        <td style={{ display: "flex" }}>
           <MSButton
             style={{ marginRight: "5px" }}
-            variable="LITE"
+            variable="FULL"
             width=""
             onClick={() => {
               setMode("edit");
             }}
             text="עדכן"
+          />
+          <MSButton
+            style={{ marginRight: "5px" }}
+            variable="LITE"
+            width=""
+            onClick={() => {
+              handleDelete(line.id);
+              setMode("edit");
+            }}
+            text="מחק"
           />
         </td>
       ) : (
