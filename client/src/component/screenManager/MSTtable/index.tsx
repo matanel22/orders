@@ -5,6 +5,7 @@ import { MSButton } from "./MSButton";
 import { InputFields } from "./fields/InputFields";
 import { AddLineComponent } from "./fields/InputAddLine";
 import OnClickOutsideModal from "../../modals";
+import { SelectOption } from "./fields/MultySelect";
 export interface TableColumn {
   columnId: string;
   label: string;
@@ -26,6 +27,10 @@ interface MSTTableProps {
   textButton: string;
   setValueSelect?: any;
   valueSelect?: any;
+  setOptions?: any;
+  setValueOpt?: any;
+  valueOpt?: any;
+  array?: SelectOption[];
 }
 
 export const MSTTable = ({
@@ -41,13 +46,14 @@ export const MSTTable = ({
   textButton,
   valueSelect,
   setValueSelect,
+  setOptions,
+  setValueOpt,
+  valueOpt,
+  array,
 }: MSTTableProps) => {
   const [mode, setMode] = useState("");
   const [inputValue, setInputValue] = useState();
-  const [openHistoryModal, setOpenHistoryModal] = useState(false);
-  const reset = () => {
-    setValueSelect({});
-  };
+
   return (
     <TableWrapper>
       <div>{headLine}</div>
@@ -74,6 +80,9 @@ export const MSTTable = ({
                   heandleLineChange={heandleLineChange}
                   line={line}
                   searchValue={searchValue}
+                  setValueOpt={setValueOpt}
+                  valueOpt={valueOpt}
+                  array={array}
                 />
               </React.Fragment>
             ))}
@@ -92,6 +101,8 @@ export const MSTTable = ({
           />
         ) : (
           <AddLineComponent
+            heandleLineChange={heandleLineChange}
+            setOptions={setOptions}
             editData={editData}
             AddLineText={textButton}
             handleAddLine={handleAddLine}
@@ -101,6 +112,9 @@ export const MSTTable = ({
             setMode={setMode}
             valueSelect={valueSelect}
             setValueSelect={setValueSelect}
+            setValueOpt={setValueOpt}
+            valueOpt={valueOpt}
+            array={array}
           />
         )}
       </div>
