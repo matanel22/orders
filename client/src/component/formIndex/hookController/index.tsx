@@ -12,6 +12,7 @@ import { SelectField } from "../fieldsTevel/SelectOpt";
 import ButtonUI from "../../ButtonUi";
 import DateCalender from "../fieldsTevel/DateCalender";
 import { useNavigate } from "react-router-dom";
+import { TableColumn } from "../../screenManager/MSTtable";
 
 export interface FormInputs {
   id: string;
@@ -24,6 +25,7 @@ export interface FormInputs {
   orderTime?: string;
 }
 export interface FormOptions {
+  tableHeadRow?: TableColumn[];
   options: FormInputs[];
   setOptions: Dispatch<React.SetStateAction<FormInputs[]>>;
 }

@@ -16,8 +16,8 @@ const Card = <T extends Record<string, any>>({
 }: ArrayComponentProps<T>) => {
   const [show, setShow] = useState(false);
   return (
-    <div style={{display:"flex"}}>
-      {options.map((opt, index) => (
+    <div style={{ display: "flex" }}>
+      {/* {options.map((opt, index) => (
         <DeteilsCard
           id={opt.id}
           name={opt.name}
@@ -26,7 +26,7 @@ const Card = <T extends Record<string, any>>({
           statusId={opt.statusId}
           items={opt.items}
         />
-      ))}
+      ))} */}
     </div>
   );
 };

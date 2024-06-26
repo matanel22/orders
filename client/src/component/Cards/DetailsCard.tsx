@@ -4,55 +4,32 @@ import ItemsDetails from "./Items";
 import deleteOrder from "../../svg/deleteOrder.svg";
 import view from "../../svg/view.svg";
 import { Span } from "../orders/OrderDeteils";
-const DeteilsCard = ({
-  id,
-  name,
-  eventType,
-  locationType,
-  items,
-  statusId,
-  orderDate,
-  orderTime,
-}: FormInputs) => {
+import { Line, TableColumn } from "../screenManager/MSTtable";
+import { ORDERS_FOOD } from "../orders";
+
+interface IPropsDetails {
+  line: Line;
+  tableHeadRow: TableColumn[];
+}
+
+const DeteilsCard = ({ line }: IPropsDetails) => {
   return (
-    <CardContainer key={id}>
-      <h1 style={{ textAlign: "center" }}>{name}</h1>
-      <div style={{ display: "flex", flexFlow: "wrap" }}>
-        <div>
-          <Span>סוג אירוע:</Span>
-          {`${eventType}`}
+    <CardContainer>
+      <div style={{ display: "flex" }}>
+        <div style={{ marginRight: "1rem" }}>
+          {ORDERS_FOOD.map((field, index) => (
+            <div key={index}>{`${field.label}:`}</div>
+          ))}
         </div>
-        <div>
-          <Span>מקום אירוע:</Span>
-          {locationType}
-        </div>
-        {/* <div><Span>סטטוס:</Span>{statusId.name}</div> */}
-        <div>
-          <Span> תאריך הספקה:</Span>
-          {orderDate?.toLocaleDateString()}
-        </div>
-        <div>
-          <Span> זמן הספקה:</Span>
-          {orderTime}
-        </div>
-        {/* <div><span>סוג אירוע</span>{statusId.name}</div> */}
-        <div>
-          {items.map((item) => {
-            return (
-              <div key={item.id}>
-                <ItemsDetails
-                  id={item.id}
-                  name={item.name}
-                  amount={item.amount}
-                />
-              </div>
-            );
+
+        <div style={{ paddingRight: "1rem" }}>
+          {ORDERS_FOOD.map((field, index) => {
+            return <div key={index}>{`${line[field.columnId]}`}</div>;
           })}
         </div>
       </div>
-      <div
-        style={{ display: "flex", justifyContent: "end", paddingLeft: "1rem" }}
-      >
+
+      <div>
         <img src={view} alt="Description of the image" />
         <img src={deleteOrder} alt="Description of the image" />
       </div>

@@ -87,6 +87,7 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
       }
       return opt;
     });
+
     setOptions(updatedOptions);
   };
   const handleDelete = (id: string) => {

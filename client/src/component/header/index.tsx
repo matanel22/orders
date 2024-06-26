@@ -25,7 +25,7 @@ export const Header = ({ plus }: IProps) => {
     <>
       <HeaderWarper>
         <HeaderStyle>
-          <h1>ניהול משתמשים</h1>
+          {/* <h1>ניהול משתמשים</h1> */}
           {/* <SearchComponent items={searchResults}/> */}
         </HeaderStyle>
       </HeaderWarper>

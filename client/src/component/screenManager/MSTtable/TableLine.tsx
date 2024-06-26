@@ -36,18 +36,6 @@ export const TableLine = ({
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
 
-  useEffect(() => {
-    tableHeadRow.map((column, index) => {
-      const value = line[column.columnId];
-      if (Array.isArray(value)) {
-        // If value is an array, log each element
-        value.forEach((item, idx) => {
-          console.log(`Array item ${idx}:`, item.label);
-        });
-      }
-    });
-  }, []);
-  //<td key={index}>{line[column.columnId]}</td>
   return (
     <tr>
       {mode === "" ? (

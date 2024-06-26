@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const SearchContainer = styled.div`
-direction: rtl;
+  direction: rtl;
   width: 150px;
   margin: auto;
+  padding-left: 1rem;
 `;
 
 export const SearchInput = styled.input`

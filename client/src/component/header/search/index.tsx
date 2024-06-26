@@ -31,7 +31,6 @@ export const genericSearch = <T extends Record<string, any>>(
   });
 };
 
-
 const SearchComponent = <T extends Record<string, any>>({
   items,
   state,

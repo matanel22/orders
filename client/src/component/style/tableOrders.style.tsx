@@ -29,15 +29,15 @@ export const HeaderWarper = styled.div`
   justify-content: space-between;
 `;
 const ButtonBsic = styled.button`
-display:flex;
-align-items:center;
-text-align :center;
-justify-content: center;
-background:rgba(0, 128, 0, 0.3);
-box-sizing: border-box;
-cursor :pointer;
-font-size:1rem;
-font-weight:550;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background: rgba(0, 128, 0, 0.3);
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 550;
 `;
 
 export const ButtonUi = styled(ButtonBsic)`
@@ -96,8 +96,7 @@ export const SearchOrder = styled.input`
 `;
 export const ButtonArrow = styled.img``;
 export const CardContainer = styled.div`
-    height: 100%;
-
+  height: 100%;
 `;
 
 export const CardTitle = styled.h2`

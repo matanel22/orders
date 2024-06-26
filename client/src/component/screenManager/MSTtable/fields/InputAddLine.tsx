@@ -70,7 +70,7 @@ export const AddLineComponent = ({
               )}
               {field.edit === "multySelect" && (
                 <MultySelect
-                  multiple={true}
+                  multiple
                   onChange={(o) => {
                     setValueOpt(o);
                   }}
