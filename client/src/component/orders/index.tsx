@@ -41,10 +41,10 @@ export const ORDERS_FOOD: TableColumn[] = [
     label: "מיקום אירוע",
     columnId: "locationType",
   },
-  // {
-  //   label: "סטטוס",
-  //   columnId: "statusId.name",
-  // },
+  {
+    label: "סטטוס",
+    columnId: "statusId.name",
+  },
   {
     label: "זמן הזמנה",
     columnId: "orderDate",
@@ -53,12 +53,34 @@ export const ORDERS_FOOD: TableColumn[] = [
     label: "שעת הזמנה",
     columnId: "orderTime",
   },
+  {
+    label: "פריטים",
+    columnId: "items",
+    type: "arr",
+  },
 ];
 
 const AllOrders = ({ options, setOptions }: FormOptions) => {
   const nav = useNavigate();
   const [openAddNewOrder, setOpenAddNewOrder] = useState(false);
+  const handleDelete = (id: string) => {
+    const delRow = options.filter((row) => {
+      return row.id !== id;
+    });
+    setOptions(delRow);
+  };
 
+  const heandleLineChange = (_id: string, obj: object) => {
+    console.log(obj);
+
+    const updatedOptions = options.map((opt) => {
+      if (opt.id === _id) {
+        return { ...opt, ...obj };
+      }
+      return opt;
+    });
+    setOptions(updatedOptions);
+  };
   return (
     <DefaultContainer background={true}>
       <HeaderWarper>
@@ -72,7 +94,12 @@ const AllOrders = ({ options, setOptions }: FormOptions) => {
         </ButtonUi>
         <SearchComponent items={options} state={setOptions} />
       </HeaderWarper>
-      <OrderDeteils options={options} setOptions={setOptions} />
+      <OrderDeteils
+        options={options}
+        setOptions={setOptions}
+        handleDelete={handleDelete}
+        heandleLineChange={heandleLineChange}
+      />
     </DefaultContainer>
   );
 };

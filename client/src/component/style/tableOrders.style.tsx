@@ -95,9 +95,7 @@ export const SearchOrder = styled.input`
   border: "1px solid rgba(0, 128, 0, 0.3)";
 `;
 export const ButtonArrow = styled.img``;
-export const CardContainer = styled.div`
-  height: 100%;
-`;
+export const CardContainer = styled.div``;
 
 export const CardTitle = styled.h2`
   font-size: 24px;

@@ -13,32 +13,22 @@ import styled from "styled-components";
 import { FormOptions } from "../formIndex/hookController";
 import { ORDERS_FOOD } from ".";
 
-const OrderDeteils = ({ tableHeadRow, options, setOptions }: FormOptions) => {
-  const jsonDataString = JSON.stringify(jsonData, null, 2);
-  const tempJsonData = JSON.parse(jsonDataString);
-  const tempArray = tempJsonData.data.results;
-  const [showMoreDatail, setShowMoreDetail] = useState({
-    stap: false,
-    openIndex: 0,
-  });
-
-  const handleRowClick = (order: OrderIProps, index: number) => {
-    setShowMoreDetail({
-      ...showMoreDatail,
-      stap: !showMoreDatail.stap,
-      openIndex: index,
-    });
-  };
-
+const OrderDeteils = ({
+  tableHeadRow,
+  options,
+  setOptions,
+  handleDelete,
+  heandleLineChange,
+  handleAddLine,
+}: FormOptions) => {
   return (
-    <ModalDegine>
+    <div>
       {options.map((order) => {
         return (
           <div
             key={order.id}
             style={{
               boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)",
-
               width: "80vw",
               margin: "0 auto",
               direction: "rtl",
@@ -46,13 +36,19 @@ const OrderDeteils = ({ tableHeadRow, options, setOptions }: FormOptions) => {
               borderRadius: "1rem",
             }}
           >
-            <div style={{ height: "100%" }}>
-              <DeteilsCard tableHeadRow={ORDERS_FOOD} line={order} />
-            </div>
+            <DeteilsCard
+              handleAddLine={handleAddLine}
+              heandleLineChange={heandleLineChange}
+              handleDelete={handleDelete}
+              tableHeadRow={ORDERS_FOOD}
+              line={order}
+              options={options}
+              setOptions={setOptions}
+            />
           </div>
         );
       })}
-    </ModalDegine>
+    </div>
   );
 };
 

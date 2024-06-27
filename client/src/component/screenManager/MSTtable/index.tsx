@@ -9,6 +9,7 @@ import { SelectOption } from "./fields/MultySelect";
 export interface TableColumn {
   columnId: string;
   label: string;
+  type?: string;
 }
 export interface Line {
   id: string;
