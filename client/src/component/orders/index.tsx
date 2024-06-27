@@ -19,20 +19,68 @@ import AppForm, {
 } from "../formIndex/hookController";
 import { useNavigate } from "react-router-dom";
 import { ALL_ORDERS } from "../ArrData";
-interface Person {
-  id: string;
-  name: string;
-  age: number;
-  occupation?: string;
-}
+import { TableColumn } from "../screenManager/MSTtable";
 
-// const orderDate = comperForDate("20/05/2023");
+// name: string;
+// eventType: string;
+// locationType: string;
+// items: IPropsItems[];
+// statusId: { id: string; name: string };
+// orderDate?: Date;
+// orderTime?: string;
+export const ORDERS_FOOD: TableColumn[] = [
+  {
+    label: "שם הזמנה",
+    columnId: "name",
+  },
+  {
+    label: "סוג אירוע",
+    columnId: "eventType",
+  },
+  {
+    label: "מיקום אירוע",
+    columnId: "locationType",
+  },
+  {
+    label: "סטטוס",
+    columnId: "statusId.name",
+  },
+  {
+    label: "זמן הזמנה",
+    columnId: "orderDate",
+  },
+  {
+    label: "שעת הזמנה",
+    columnId: "orderTime",
+  },
+  {
+    label: "פריטים",
+    columnId: "items",
+    type: "arr",
+  },
+];
 
 const AllOrders = ({ options, setOptions }: FormOptions) => {
   const nav = useNavigate();
   const [openAddNewOrder, setOpenAddNewOrder] = useState(false);
-  const [searchResults, setSearchResults] = useState(ALL_ORDERS);
-  const [allOrders, setOllOrders] = useState();
+  const handleDelete = (id: string) => {
+    const delRow = options.filter((row) => {
+      return row.id !== id;
+    });
+    setOptions(delRow);
+  };
+
+  const heandleLineChange = (_id: string, obj: object) => {
+    console.log(obj);
+
+    const updatedOptions = options.map((opt) => {
+      if (opt.id === _id) {
+        return { ...opt, ...obj };
+      }
+      return opt;
+    });
+    setOptions(updatedOptions);
+  };
   return (
     <DefaultContainer background={true}>
       <HeaderWarper>
@@ -44,19 +92,14 @@ const AllOrders = ({ options, setOptions }: FormOptions) => {
         >
           הזמנה חדשה
         </ButtonUi>
+        <SearchComponent items={options} state={setOptions} />
       </HeaderWarper>
-      {/* <SearchComponent items={searchResults} state={setSearchResults} /> */}
-      {/* <Card options={searchResults} /> */}
-
-      {/* <ResultsList>
-        {searchResults.map((result) => (
-          <ResultItem key={result.id}>
-            {result.name} - {result.occupation}
-          </ResultItem>
-        ))}
-      </ResultsList> */}
-
-      <OrderDeteils options={options} setOptions={setOptions} />
+      <OrderDeteils
+        options={options}
+        setOptions={setOptions}
+        handleDelete={handleDelete}
+        heandleLineChange={heandleLineChange}
+      />
     </DefaultContainer>
   );
 };

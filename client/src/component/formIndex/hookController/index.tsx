@@ -12,6 +12,7 @@ import { SelectField } from "../fieldsTevel/SelectOpt";
 import ButtonUI from "../../ButtonUi";
 import DateCalender from "../fieldsTevel/DateCalender";
 import { useNavigate } from "react-router-dom";
+import { Line, TableColumn } from "../../screenManager/MSTtable";
 
 export interface FormInputs {
   id: string;
@@ -24,8 +25,13 @@ export interface FormInputs {
   orderTime?: string;
 }
 export interface FormOptions {
+  handleDelete?: (id: string) => void;
+  heandleLineChange?: any;
+  handleAddLine?: any;
+  tableHeadRow?: TableColumn[];
   options: FormInputs[];
   setOptions: Dispatch<React.SetStateAction<FormInputs[]>>;
+  line?: Line;
 }
 export interface IPropsItems {
   id: string;
@@ -77,7 +83,11 @@ export const Items: IPropsItems[] = [
     comments: "אין",
   },
 ];
-const AppForm = ({ options, setOptions }: FormOptions) => {
+const AppForm = ({ options, setOptions, line }: FormOptions) => {
+  const [allItems, setAllItems] = useState(Items);
+
+  const nav = useNavigate();
+
   const methods = useForm<FormInputs>({
     mode: "onBlur",
     shouldUnregister: true,
@@ -85,15 +95,15 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
     defaultValues: {
       id: "",
       statusId: { id: "1", name: "טרם אושר" },
-
       name: "",
+
       eventType: "",
       locationType: "",
       items: [
         {
           id: "",
           name: "",
-          // amount: 0,
+          amount: 0,
           loctionTypeId: "",
           eventTypeId: "",
           comments: "",
@@ -101,19 +111,35 @@ const AppForm = ({ options, setOptions }: FormOptions) => {
       ],
     },
   });
-  const nav = useNavigate();
   const {
     handleSubmit,
+    reset,
     watch,
     control,
     formState: { isValid },
   } = methods;
+  useEffect(() => {
+    console.log(line);
 
-  const [allItems, setAllItems] = useState(Items);
+    if (line) {
+      reset(line);
+    }
+  }, [options]);
 
   const onSubmit = (data: FormInputs) => {
-    setOptions((prevOrders) => [...prevOrders, data]);
-    console.log(data);
+    if (data) {
+      const foundLocation = LoctionType.find(
+        (loc) => loc.id === data.locationType
+      );
+      const foundEvent = EventType.find((eve) => eve.id === data.eventType);
+      if (foundLocation) data.locationType = foundLocation?.name;
+
+      if (foundEvent) data.eventType = foundEvent?.name;
+      data.statusId = { id: "1", name: "טרם אושר" };
+    }
+
+    // setOptions((prevOrders) => [...prevOrders, data]);
+
     nav("/");
   };
 

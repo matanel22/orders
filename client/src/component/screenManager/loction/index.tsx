@@ -44,7 +44,6 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
       return opt;
     });
     setOptions(updatedOptions);
-    console.log("Updated options:", updatedOptions);
   };
   const handleDelete = (id: string) => {
     const delRow = options.filter((row) => {
@@ -55,13 +54,9 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
   const heandleAddLine = (newName: string) => {
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    // Add the unique ID to the object
     const newObj = { name: newName, id: uniqueId, comments: "" };
 
-    // Update the state with the new object
     setOptions((prev) => [...prev, newObj]);
-
-    console.log("Added new line:", newObj);
   };
   return (
     <MSTTable

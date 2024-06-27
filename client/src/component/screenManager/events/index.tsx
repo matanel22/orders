@@ -44,13 +44,9 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
   const heandleAddLine = (newName: string) => {
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
-    // Add the unique ID to the object
     const newObj = { name: newName, id: uniqueId, comments: "" };
 
-    // Update the state with the new object
     setOptions((prev) => [...prev, newObj]);
-
-    console.log("Added new line:", newObj);
   };
   return (
     <MSTTable

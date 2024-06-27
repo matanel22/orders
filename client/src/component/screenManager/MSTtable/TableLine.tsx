@@ -3,6 +3,7 @@ import { InputFields } from "./fields/InputFields";
 import { MSButton } from "./MSButton";
 import { Line, TableColumn } from ".";
 import { SelectFields } from "./fields/SelectFields";
+import { MultySelect, SelectOption } from "./fields/MultySelect";
 
 interface TableLineProps {
   headLine?: any;
@@ -13,7 +14,9 @@ interface TableLineProps {
   handleDelete: (id: string) => void;
   handleAddLine: (newLine: Line) => void;
   searchValue: string;
-
+  setValueOpt?: any;
+  valueOpt?: any;
+  array?: SelectOption[];
   children?: ReactNode;
 }
 
@@ -27,6 +30,9 @@ export const TableLine = ({
   searchValue,
   children,
   handleAddLine,
+  setValueOpt,
+  valueOpt,
+  array,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
 
@@ -34,13 +40,13 @@ export const TableLine = ({
     <tr>
       {mode === "" ? (
         tableHeadRow.map((column, index) => (
-          <td key={index}>{line[column.columnId]}</td>
+          <td key={index}>{`${line[column.columnId]}${" "}`}</td>
         ))
       ) : (
         <>
           {editData.map((field: any, index: number) => (
             <React.Fragment key={index}>
-              {field.edit === "input" ? (
+              {field.edit === "input" && (
                 <InputFields
                   initial={line[field.name]}
                   type={"text"}
@@ -49,7 +55,8 @@ export const TableLine = ({
                     heandleLineChange(line.id, newLine);
                   }}
                 />
-              ) : (
+              )}{" "}
+              {field.edit === "select" && (
                 <SelectFields
                   initial={line[field.name]}
                   changeSelectValue={(newValue: string) => {
@@ -57,6 +64,16 @@ export const TableLine = ({
                     heandleLineChange(line.id, newLine);
                   }}
                   options={field.options}
+                />
+              )}
+              {field.edit === "multySelect" && (
+                <MultySelect
+                  multiple={true}
+                  onChange={(o) => {
+                    setValueOpt(o);
+                  }}
+                  options={array}
+                  value={valueOpt}
                 />
               )}
             </React.Fragment>

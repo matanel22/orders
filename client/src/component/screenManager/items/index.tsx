@@ -71,9 +71,7 @@ export const ViewItems = ({
 }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [valueSelect, setValueSelect] = useState<ValueSelect>({});
-  useEffect(() => {
-    console.log("valueSelect", valueSelect);
-  }, [valueSelect]);
+
   useEffect(() => {
     editItems[1].options = allEvent;
     editItems[2].options = allLoction;
@@ -92,6 +90,8 @@ export const ViewItems = ({
   }, []);
 
   const heandleLineChange = (_id: string, obj: object) => {
+    console.log(obj);
+
     const updatedOptions = options.map((opt) => {
       if (opt.id === _id) {
         return { ...opt, ...obj };
@@ -112,7 +112,6 @@ export const ViewItems = ({
 
     const newObj = { ...obj, id: uniqueId };
     setOptions((prev) => [...prev, newObj]);
-    console.log("Added new line:", obj);
   };
 
   return (

@@ -13,7 +13,7 @@ export const ALL_ORDERS: FormInputs[] = [
     locationType: "Engineer",
     items: [{ id: "1", name: "נעליים", amount: 40 }],
     statusId: { id: "1", name: "ממתין לאישור" },
-    orderDate: comperForDate("20/05/2023"),
+    // orderDate: comperForDate("20/05/2023"),
     orderTime: "14:25",
   },
   {
@@ -23,7 +23,7 @@ export const ALL_ORDERS: FormInputs[] = [
     locationType: "Engineer",
     items: [{ id: "2", name: "סנדלים", amount: 40 }],
     statusId: { id: "2", name: "מאושר" },
-    orderDate: comperForDate("20/05/2023"),
+    // orderDate: comperForDate("20/05/2023"),
     orderTime: "14:25",
   },
   {
@@ -33,7 +33,7 @@ export const ALL_ORDERS: FormInputs[] = [
     locationType: "Engineer",
     items: [{ id: "3", name: "מגפיים", amount: 40 }],
     statusId: { id: "3", name: "בוטל" },
-    orderDate: comperForDate("20/05/2023"),
+    // orderDate: comperForDate("20/05/2023"),
     orderTime: "14:25",
   },
 ];

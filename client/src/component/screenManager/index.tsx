@@ -6,10 +6,47 @@ import { ViewLoction } from "./loction";
 import { Route, useNavigate, useParams } from "react-router-dom";
 import { Items, EventType, LoctionType } from "../formIndex/hookController";
 import styled from "styled-components";
+import { ViewUsers } from "./users";
+
+export interface IPropsUsers {
+  id: string;
+  firstName: string;
+  lastName?: string;
+  personal_id?: string;
+  phone?: string;
+  permissions?: string[];
+}
+const people: IPropsUsers[] = [
+  {
+    firstName: "משה",
+    lastName: "בן שמעון",
+    id: "1",
+    personal_id: "123456789",
+    phone: "555-1234",
+    permissions: ["טרקלין", "רכב"],
+  },
+  {
+    firstName: "אשר",
+    lastName: "בן חורין",
+    id: "2",
+    personal_id: "987654321",
+    phone: "555-5678",
+    permissions: ["טרקלין", "רכב"],
+  },
+  {
+    firstName: "יהודה",
+    lastName: "התותח",
+    id: "3",
+    personal_id: "456123789",
+    phone: "555-8765",
+    permissions: ["טרקלין", "רכב"],
+  },
+];
 enum Views {
   ITEMS = "items",
   VIEW_LOCTION = "ViewLoction",
   VIEW_EVENT_TYPE = "ViewEventType",
+  VIEW_Users = "ViewUsers",
 }
 
 export const ScreenManager = () => {
@@ -17,6 +54,7 @@ export const ScreenManager = () => {
   const [allItems, setAllItems] = useState(Items);
   const [allEvent, setAllEvent] = useState(EventType);
   const [allLoction, setAllLoction] = useState(LoctionType);
+  const [allUsers, setAllUsers] = useState(people);
 
   const changeView = (view: Views) => {
     setCurrentView(view);
@@ -40,6 +78,12 @@ export const ScreenManager = () => {
         >
           סוג אירוע
         </StyledButton>
+        <StyledButton
+          type="button"
+          onClick={() => changeView(Views.VIEW_Users)}
+        >
+          הרשאות משתמשים
+        </StyledButton>
 
         {currentView === Views.ITEMS && (
           <ViewItems
@@ -54,6 +98,9 @@ export const ScreenManager = () => {
         )}
         {currentView === Views.VIEW_EVENT_TYPE && (
           <ViewEvent options={allEvent} setOptions={setAllEvent} />
+        )}
+        {currentView === Views.VIEW_Users && (
+          <ViewUsers options={allUsers} setOptions={setAllUsers} />
         )}
       </div>
     </DefaultContainer>
