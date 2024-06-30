@@ -53,7 +53,6 @@ const editItems: ArrayItem[] = [
   {
     table: "items",
     name: "loctionTypeId",
-
     edit: "select",
     options: [],
 

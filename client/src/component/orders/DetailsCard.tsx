@@ -1,6 +1,6 @@
 import AppForm, { FormInputs } from "../formIndex/hookController";
 import { CardContainer } from "../style/tableOrders.style";
-import ItemsDetails from "./Items";
+
 import deleteOrder from "../../svg/deleteOrder.svg";
 import view from "../../svg/view.svg";
 import { Span } from "../orders/OrderDeteils";

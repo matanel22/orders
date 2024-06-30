@@ -8,7 +8,7 @@ import SearchComponent from "../header/search";
 
 import { ModalDegine } from "./modal";
 
-import DeteilsCard from "../Cards/DetailsCard";
+import DeteilsCard from "./DetailsCard";
 import styled from "styled-components";
 import { FormOptions } from "../formIndex/hookController";
 import { ORDERS_FOOD } from ".";

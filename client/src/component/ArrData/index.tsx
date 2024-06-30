@@ -24,7 +24,7 @@ export const ALL_ORDERS: FormInputs[] = [
     items: [{ id: "2", name: "סנדלים", amount: 40 }],
     statusId: { id: "2", name: "מאושר" },
     // orderDate: comperForDate("20/05/2023"),
-    orderTime: "14:25",
+    orderTime: "15:25",
   },
   {
     id: "3",
