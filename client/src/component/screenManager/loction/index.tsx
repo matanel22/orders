@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MSTTable, TableColumn } from "../MSTtable";
 
 import React, { Dispatch } from "react";
-import DataTable from "../tableRow";
+
 
 export interface EventProper {
   id: string;

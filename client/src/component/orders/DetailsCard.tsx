@@ -70,14 +70,14 @@ const DeteilsCard = ({
       </div>
 
       {mode && (
-        <ModalDegine
-          isOpen={mode}
-          onClose={() => {
-            setMode(false);
-          }}
-        >
+        // <ModalDegine
+        //   isOpen={mode}
+        //   onClose={() => {
+        //     setMode(false);
+        //   }}
+        // >
           <AppForm options={options} setOptions={setOptions} line={line} />
-        </ModalDegine>
+        // </ModalDegine>
       )}
 
       <div

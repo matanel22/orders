@@ -1,18 +1,18 @@
 import React, { Dispatch, useEffect, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-
-// import SelectOpt from "./input/SelectOpt";
+import { FormProvider, useForm } from "react-hook-form";
 import { DefaultContainer } from "../../../defultContainer";
 import { FormContainer, SubmitButton } from "./style.index";
 import { isInt, required } from "../../validates";
 import { TextField } from "../fieldsTevel/TextField";
-
 import DynamicSelectFields from "../fieldsTevel/SelectHf";
 import { SelectField } from "../fieldsTevel/SelectOpt";
 import ButtonUI from "../../ButtonUi";
 import DateCalender from "../fieldsTevel/DateCalender";
 import { useNavigate } from "react-router-dom";
 import { Line, TableColumn } from "../../screenManager/MSTtable";
+import { EventType, Items, LocationType } from "../../ArrData";
+import { watch } from "fs";
+
 
 export interface FormInputs {
   id: string;
@@ -24,184 +24,105 @@ export interface FormInputs {
   orderDate?: Date;
   orderTime?: string;
 }
+
 export interface FormOptions {
   handleDelete?: (id: string) => void;
-  heandleLineChange?: any;
+  handleLineChange?: any;
   handleAddLine?: any;
   tableHeadRow?: TableColumn[];
   options: FormInputs[];
   setOptions: Dispatch<React.SetStateAction<FormInputs[]>>;
   line?: Line;
 }
+
 export interface IPropsItems {
   id: string;
   name: string;
   amount?: number;
   eventTypeId?: string;
-  loctionTypeId?: string;
+  locationTypeId?: string;
   comments?: string;
 }
-export const EventType = [
-  { id: "1", name: "private", comments: "אין" },
-  { id: "2", name: "public", comments: "יש" },
-  { id: "3", name: "outside", comments: "אין" },
-  { id: "4", name: "front", comments: "יש" },
-];
-export const LoctionType = [
-  { id: "3", name: "tel Aviv", comments: "אין" },
-  { id: "4", name: "netivot", comments: "יש" },
-  { id: "5", name: "jeruzalem", comments: "יש" },
-  { id: "6", name: "Kiryat Ono", comments: "יש" },
-];
-export const Items: IPropsItems[] = [
-  {
-    id: "0",
-    name: "no",
-    eventTypeId: "1",
-    loctionTypeId: "3",
-    comments: "יש",
-  },
-  {
-    id: "1",
-    name: "koko",
-    eventTypeId: "2",
-    loctionTypeId: "4",
-    comments: "אין",
-  },
-  {
-    id: "3",
-    name: "bkela",
-    eventTypeId: "3",
-    loctionTypeId: "5",
-    comments: "אין",
-  },
-  {
-    id: "4",
-    name: "fish",
-    eventTypeId: "4",
-    loctionTypeId: "6",
-    comments: "אין",
-  },
-];
+
 const AppForm = ({ options, setOptions, line }: FormOptions) => {
   const [allItems, setAllItems] = useState(Items);
-
-  const nav = useNavigate();
-
+  const navigate = useNavigate();
   const methods = useForm<FormInputs>({
     mode: "onBlur",
     shouldUnregister: true,
     reValidateMode: "onChange",
-    defaultValues: {
-      id: "",
-      statusId: { id: "1", name: "טרם אושר" },
-      name: "",
 
-      eventType: "",
-      locationType: "",
-      items: [
-        {
-          id: "",
-          name: "",
-          amount: 0,
-          loctionTypeId: "",
-          eventTypeId: "",
-          comments: "",
-        },
-      ],
-    },
   });
-  const {
-    handleSubmit,
-    reset,
-    watch,
-    control,
-    formState: { isValid },
-  } = methods;
-  useEffect(() => {
-    console.log(line);
+  const { handleSubmit,watch, reset, formState: { isValid } } = methods;
 
-    if (line) {
-      reset(line);
-    }
-  }, [options]);
+  useEffect(() => {
+    
+ 
+    reset(line);
+  }, [reset, line]);
 
   const onSubmit = (data: FormInputs) => {
-    if (data) {
-      const foundLocation = LoctionType.find(
-        (loc) => loc.id === data.locationType
-      );
-      const foundEvent = EventType.find((eve) => eve.id === data.eventType);
-      if (foundLocation) data.locationType = foundLocation?.name;
-
-      if (foundEvent) data.eventType = foundEvent?.name;
-      data.statusId = { id: "1", name: "טרם אושר" };
-    }
-
-    // setOptions((prevOrders) => [...prevOrders, data]);
-
-    nav("/");
+    const foundLocation = LocationType.find(loc => loc.id === data.locationType);
+    const foundEvent = EventType.find(eve => eve.id === data.eventType);
+    if (foundLocation) data.locationType = foundLocation.name;
+    if (foundEvent) data.eventType = foundEvent.name;
+    data.statusId = { id: "1", name: "טרם אושר" };
+    
+    navigate("/");
   };
 
   return (
     <DefaultContainer background={true}>
       <FormProvider {...methods}>
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
-          <h1 style={{ textAlign: "center" }}>יצירת הזמנה</h1>
+          
+          <div style={{ display: "flex" }}>
           <TextField
             name="name"
-            placeholder={"שם הזמנה"}
+            type="text"
+            placeholder="שם הזמנה"
             validate={{
               required: (value: string) => required(value),
             }}
           />
-          <div style={{ display: "flex" }}>
             <TextField
               name="orderTime"
-              placeholder={"שעת הזמנה"}
-              type={"time"}
+              type="time"
+              placeholder="שעת הזמנה"
               validate={{
                 required: (value: string) => required(value),
               }}
             />
-
-            <div style={{ paddingRight: "1rem" }}>
+            {/* <div style={{ paddingRight: "1rem" }}>
               <DateCalender
-                label=""
                 name="orderDate"
-                placeholder={"תאריך הזמנה"}
-                type={"date"}
+                placeholder="תאריך הזמנה"
                 validate={{
                   required: (value: string) => required(value),
                 }}
               />
-            </div>
+            </div> */}
           </div>
-
           <SelectField
             options={EventType}
             name="eventType"
-            defaultValue={""}
+            defaultValue=""
             validate={{
               required: (value: string) => required(value),
             }}
             placeholder="סוג אירוע"
           />
           <SelectField
-            options={LoctionType}
+            options={LocationType}
             name="locationType"
-            defaultValue={""}
+            defaultValue=""
             validate={{
               required: (value: string) => required(value),
             }}
             placeholder="מקום אירוע"
           />
           <DynamicSelectFields name="items" options={allItems} />
-          <ButtonUI
-            type="submit"
-            disabled={!isValid}
-            name="הוסף הזמנה"
-          ></ButtonUI>
+          <ButtonUI type="submit" disabled={!isValid} name="הוסף הזמנה" />
         </FormContainer>
       </FormProvider>
     </DefaultContainer>

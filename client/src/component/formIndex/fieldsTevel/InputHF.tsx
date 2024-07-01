@@ -20,7 +20,7 @@ export interface InputProps {
 }
 export const InputHF = ({
   name,
-  value = "",
+  value,
   onChange,
   onBlur,
   autoComplete = "on",
@@ -31,6 +31,7 @@ export const InputHF = ({
   placeholder,
 }: InputProps) => {
   const [isHover, setIsHover] = useState(false);
+
 
   return (
     <div

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import jsonData from "../jsonData/data.json";
+
 
 import { IPropsAdddNewOrder, OrderIProps } from "../intarface";
 
@@ -18,7 +18,7 @@ const OrderDeteils = ({
   options,
   setOptions,
   handleDelete,
-  heandleLineChange,
+  handleLineChange,
   handleAddLine,
 }: FormOptions) => {
   return (
@@ -38,7 +38,7 @@ const OrderDeteils = ({
           >
             <DeteilsCard
               handleAddLine={handleAddLine}
-              heandleLineChange={heandleLineChange}
+              heandleLineChange={handleLineChange}
               handleDelete={handleDelete}
               tableHeadRow={ORDERS_FOOD}
               line={order}

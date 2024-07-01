@@ -30,7 +30,7 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
           <Controller
             name={`${name}[${index}].name`}
             control={control}
-            // defaultValue={}
+           
             render={({ field }) => (
               <SelectField
                 {...field}
@@ -45,7 +45,7 @@ const DynamicSelectFields = ({ name, options }: DynamicSelectFieldsProps) => {
           <div style={{paddingRight:"2rem"}}>
           <InputNumberField
             name={`${name}[${index}].amount`}
-            defaultValue={""}
+            
             validate={{
               required: (value: string) => (value ? true : "שדה זה הינו חובה"),
             }}

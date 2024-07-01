@@ -58,7 +58,7 @@ export const InputNumber = ({
       />
       {allowClear && isHover ? (
         <div className="bg-white flex px-1 justify-center items-center">
-          {/* <AiOutlineCloseCircle className="cursor-pointer text-gray-400 hover:text-gray-700" /> */}
+         
         </div>
       ) : (
         suffix && (
