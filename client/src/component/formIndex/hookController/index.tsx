@@ -92,39 +92,22 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
     mode: "onBlur",
     shouldUnregister: true,
     reValidateMode: "onChange",
-    defaultValues: {
-      id: "",
-      statusId: { id: "1", name: "טרם אושר" },
-      name: "",
-
-      eventType: "",
-      locationType: "",
-      items: [
-        {
-          id: "",
-          name: "",
-          amount: 0,
-          loctionTypeId: "",
-          eventTypeId: "",
-          comments: "",
-        },
-      ],
-    },
+   
   });
   const {
     handleSubmit,
     reset,
     watch,
-    control,
+   
     formState: { isValid },
   } = methods;
   useEffect(() => {
     console.log(line);
 
-    if (line) {
+
       reset(line);
-    }
-  }, [options]);
+    
+  }, [line,reset]);
 
   const onSubmit = (data: FormInputs) => {
     if (data) {
@@ -181,7 +164,7 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
           <SelectField
             options={EventType}
             name="eventType"
-            defaultValue={""}
+            // defaultValue={""}
             validate={{
               required: (value: string) => required(value),
             }}
@@ -190,7 +173,7 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
           <SelectField
             options={LoctionType}
             name="locationType"
-            defaultValue={""}
+            // defaultValue={""}
             validate={{
               required: (value: string) => required(value),
             }}

@@ -29,7 +29,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
     } = useController({
       name,
       rules: { validate },
-      defaultValue: defaultValue || "",
+      // defaultValue: defaultValue || "",
     });
 
     return (
@@ -43,7 +43,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
           className={className}
           disabled={disabled}
         >
-          {placeholder && <option value="">{placeholder}</option>}
+          { <option value={value}> {value}</option>}
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.name}

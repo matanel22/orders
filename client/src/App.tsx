@@ -2,8 +2,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ALL_ORDERS } from "./component/ArrData";
-import Card from "./component/Cards";
-import Test from "./component/Test";
+
 import AppForm from "./component/formIndex/hookController";
 import AllOrders from "./component/orders";
 import { ScreenManager } from "./component/screenManager";
