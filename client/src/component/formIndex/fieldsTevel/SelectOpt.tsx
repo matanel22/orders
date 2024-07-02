@@ -29,9 +29,9 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
     } = useController({
       name,
       rules: { validate },
-      defaultValue: defaultValue || "",
+   
     });
-  // console.log(defaultValue);
+ 
 
     return (
       <div>
