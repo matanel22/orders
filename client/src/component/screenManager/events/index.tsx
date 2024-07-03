@@ -33,7 +33,7 @@ export const ViewEvent = ({ options, setOptions }: IPropsEventLoc) => {
       return opt;
     });
     setOptions(updatedOptions);
-    console.log("Updated options:", updatedOptions);
+
   };
   const handleDelete = (id: string) => {
     const delRow = options.filter((row) => {

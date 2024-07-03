@@ -1,10 +1,15 @@
+import dayjs from "dayjs";
 import { FormInputs } from "../formIndex/hookController";
+const comperForDate = (str: string): Date => {
+  const [day, month, year] = str.split("/").map(Number);
+  const date = new Date(year, month - 1, day);
 
-// const comperForDate = (str: string) => {
-//   const [day, month, year] = str.split("/").map(Number);
-//   return new Date(year, month - 1, day);
-// };
+  if (isNaN(date.getTime())) {
+    throw new Error("Invalid Date");
+  }
 
+  return date;
+};
 export const ALL_ORDERS: FormInputs[] = [
   {
     id: "1",
@@ -14,7 +19,7 @@ export const ALL_ORDERS: FormInputs[] = [
     name: "Alice Johnson",
     items: [{ id: "1", name: "bkela", amount: 40 },{ id: "8", name: "fish", amount: 40 },{ id: "9", name: "no", amount: 40 }],
     statusId: { id: "1", name: "ממתין לאישור" },
-    // orderDate: comperForDate("20/05/2023"),
+    orderDate: comperForDate("20/05/2023"),
   
   },
   {
@@ -25,7 +30,7 @@ export const ALL_ORDERS: FormInputs[] = [
     locationType: "jeruzalem",
     items: [{ id: "2", name: "koko", amount: 40 }],
     statusId: { id: "2", name: "מאושר" },
-    // orderDate: comperForDate("20/05/2023"),
+    orderDate: comperForDate("20/05/2023"),
    
   },
   {
@@ -37,7 +42,7 @@ export const ALL_ORDERS: FormInputs[] = [
     locationType: "Kiryat Ono",
     items: [{ id: "3", name: "no", amount: 40 }],
     statusId: { id: "3", name: "בוטל" },
-    // orderDate: comperForDate("20/05/2023"),
+    orderDate: comperForDate("20/05/2023"),
   },
 ];
 

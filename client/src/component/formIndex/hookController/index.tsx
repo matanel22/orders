@@ -56,6 +56,7 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
   const { handleSubmit,watch, reset, formState: { isValid } } = methods;
 
   useEffect(() => {
+    console.log(line);
     
  
     reset(line);
@@ -75,9 +76,7 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
     <DefaultContainer background={true}>
       <FormProvider {...methods}>
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
-          
-          <div style={{ display: "flex" }}>
-          <TextField
+        <TextField
             name="name"
             type="text"
             placeholder="שם הזמנה"
@@ -85,6 +84,8 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
               required: (value: string) => required(value),
             }}
           />
+          <div style={{ display: "flex" }}>
+       
             <TextField
               name="orderTime"
               type="time"
@@ -93,15 +94,17 @@ const AppForm = ({ options, setOptions, line }: FormOptions) => {
                 required: (value: string) => required(value),
               }}
             />
-            {/* <div style={{ paddingRight: "1rem" }}>
+            <div style={{ paddingRight: "1rem" }}>
               <DateCalender
+               label=""
+               type="date"
                 name="orderDate"
                 placeholder="תאריך הזמנה"
                 validate={{
                   required: (value: string) => required(value),
                 }}
               />
-            </div> */}
+            </div>
           </div>
           <SelectField
             options={EventType}
