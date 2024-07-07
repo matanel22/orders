@@ -7,6 +7,7 @@ import { ViewLoction } from "./loction";
 import { Items,LocationType, EventType } from "../ArrData";
 import styled from "styled-components";
 import { ViewUsers } from "./users";
+import { EventProvider } from "./events/EventContext";
 
 export interface IPropsUsers {
   id: string;
@@ -86,6 +87,7 @@ export const ScreenManager = () => {
         </StyledButton>
 
         {currentView === Views.ITEMS && (
+          
           <ViewItems
             setOptions={setAllItems}
             options={allItems}
@@ -94,10 +96,16 @@ export const ScreenManager = () => {
           />
         )}
         {currentView === Views.VIEW_LOCTION && (
+            <EventProvider options={allLoction} setOptions={setAllLoction}>
           <ViewLoction options={allLoction} setOptions={setAllLoction} />
+          </EventProvider>
         )}
         {currentView === Views.VIEW_EVENT_TYPE && (
+            <EventProvider options={allEvent} setOptions={setAllEvent}>
+
           <ViewEvent options={allEvent} setOptions={setAllEvent} />
+          </EventProvider>
+
         )}
         {currentView === Views.VIEW_Users && (
           <ViewUsers options={allUsers} setOptions={setAllUsers} />

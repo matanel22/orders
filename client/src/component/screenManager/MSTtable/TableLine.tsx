@@ -18,6 +18,8 @@ interface TableLineProps {
   valueOpt?: any;
   array?: SelectOption[];
   children?: ReactNode;
+  saveOriginalState?: () => void;
+  cancelChanges?: () => void;
 }
 
 export const TableLine = ({
@@ -33,6 +35,8 @@ export const TableLine = ({
   setValueOpt,
   valueOpt,
   array,
+  saveOriginalState,
+  cancelChanges
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
 
@@ -82,6 +86,7 @@ export const TableLine = ({
             <button
               type="button"
               onClick={() => {
+                cancelChanges&&    cancelChanges()
                 setMode("");
               }}
             >

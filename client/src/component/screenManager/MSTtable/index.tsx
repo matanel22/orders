@@ -32,6 +32,8 @@ interface MSTTableProps {
   setValueOpt?: any;
   valueOpt?: any;
   array?: SelectOption[];
+  saveOriginalState?: () => void;
+  cancelChanges?: () => void;
 }
 
 export const MSTTable = ({
@@ -51,7 +53,9 @@ export const MSTTable = ({
   setValueOpt,
   valueOpt,
   array,
-}: MSTTableProps) => {
+  saveOriginalState,
+  cancelChanges
+  }: MSTTableProps) => {
   const [mode, setMode] = useState("");
   const [inputValue, setInputValue] = useState();
 
@@ -59,16 +63,17 @@ export const MSTTable = ({
     <TableWrapper>
       <div>{headLine}</div>
       {children}
-      <div style={{ width: "100%", height: "100%", overflow: "scroll" }}>
-        <table>
-          <thead style={{ position: "sticky", top: 0 }}>
-            <tr>
+  
+        <Table>
+        <thead>
+          <TableRow>
               {tableHeadRow.map((column, index) => (
-                <th key={index}>{column.label}</th>
+                <TableHeader key={index}>{column.label}</TableHeader>
               ))}
-            </tr>
-          </thead>
-          <tbody>
+            </TableRow>
+            </thead>
+
+       <tbody>
             {lines.map((line, index) => (
               <React.Fragment key={index}>
                 <TableLine
@@ -84,11 +89,14 @@ export const MSTTable = ({
                   setValueOpt={setValueOpt}
                   valueOpt={valueOpt}
                   array={array}
+                  cancelChanges={cancelChanges}
+                  saveOriginalState={saveOriginalState}
                 />
               </React.Fragment>
             ))}
-          </tbody>
-        </table>
+            </ tbody>
+   
+   </Table>
 
         {mode !== "ADD_LINE" ? (
           <MSButton
@@ -100,6 +108,7 @@ export const MSTTable = ({
               setMode("ADD_LINE");
             }}
           />
+          
         ) : (
           <AddLineComponent
             heandleLineChange={heandleLineChange}
@@ -118,21 +127,54 @@ export const MSTTable = ({
             array={array}
           />
         )}
-      </div>
+      
     </TableWrapper>
   );
 };
-const TableWrapper = styled.div`
-  //   max-width: 1200px;
-  //   max-height: 800px;
-  width: 80%;
-  height: 100%;
-  background-color: #fffff;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  padding: 17px 34px;
-  dispaly: flex;
-  flex-dirction: colonm;
-  margin: 0 auto;
-  margin-top: 2rem;
+
+const TableWrapper=styled.div`
+ width: 80%;
+ height: 100%;
+ background-color: #ffff;
+ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+ border-radius: 20px; 
+ padding: 17px 34px;
+ display: flex;
+ flex-direction: column;
+ margin: 0 auto;
+ margin-top: 2rem;
 `;
+
+export const Table = styled.table`
+
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+`;
+export const TableHeader = styled.th`
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+ 
+ padding: 8px;
+`;
+
+export const TableRow = styled.tr`
+  border-bottom: 1px solid #dddddd;
+
+  &:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+`;
+export const TableCell = styled.td`
+  padding: 12px 15px;
+`;
+

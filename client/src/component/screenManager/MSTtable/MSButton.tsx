@@ -18,9 +18,9 @@ export const MSButton = ({
   switch (variable) {
     case "FULL":
       return (
-        <FullButton onClick={onClick} style={{ width, ...style }}>
+        <EditButton onClick={onClick} style={{ width, ...style }}>
           {text}
-        </FullButton>
+        </EditButton>
       );
     case "miniFULL":
       return (
@@ -30,15 +30,15 @@ export const MSButton = ({
       );
     case "LITE":
       return (
-        <LiteButton onClick={onClick} style={{ width, ...style }}>
+        <DeleteButton onClick={onClick} style={{ width, ...style }}>
           {text}
-        </LiteButton>
+        </DeleteButton>
       );
     case "miniLITE":
       return (
-        <LITEMiniButton onClick={onClick} style={{ width, ...style }}>
+        <DeleteButton onClick={onClick} style={{ width, ...style }}>
           {text}
-        </LITEMiniButton>
+        </DeleteButton>
       );
     default:
       return null;
@@ -81,4 +81,39 @@ const LiteButton = styled(Button)`
 const LITEMiniButton = styled(LiteButton)`
   font-size: 14px;
   line-height: 17px;
+`;
+export const Buttons = styled.button`
+  background-color: #009879;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #007b63;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const EditButton = styled(Buttons)`
+  background-color: #152a63;
+  ;
+
+  &:hover {
+    background-color: #000000;
+  }
+`;
+
+export const DeleteButton = styled(Buttons)`
+  background-color: #ff4d4d;
+
+  &:hover {
+    background-color: #cc0000;
+  }
 `;
