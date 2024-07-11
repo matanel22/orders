@@ -36,10 +36,33 @@ export const TableLine = ({
   valueOpt,
   array,
   saveOriginalState,
-  cancelChanges
+  cancelChanges,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
+  const newChangeSelectValue = (newValue: any) => {
+    const newSelected = Array.isArray(newValue)
+      ? newValue.map((newVal) => {
+          return newVal.label;
+        })
+      : "";
 
+    editData.map((field: any) => {
+      if (field.edit === "multySelect") {
+        const newLine = { ...line, [field.name]: newSelected };
+
+        heandleLineChange(line.id, newLine);
+      }
+    });
+    setValueOpt([]);
+  };
+  useEffect(() => {
+    const columns = line.permissions.map((value: any) => ({
+      label: value,
+      value: value,
+    }));
+
+    setValueOpt(columns);
+  }, [line]);
   return (
     <tr>
       {mode === "" ? (
@@ -78,6 +101,11 @@ export const TableLine = ({
                   }}
                   options={array}
                   value={valueOpt}
+                  // changeSelectValue={(newValue: string[] | undefined) => {
+                  //   const newLine = { ...line, [field.name]: newValue };
+
+                  //   heandleLineChange(line.id, newLine);
+                  // }}
                 />
               )}
             </React.Fragment>
@@ -86,7 +114,7 @@ export const TableLine = ({
             <button
               type="button"
               onClick={() => {
-                cancelChanges&&    cancelChanges()
+                cancelChanges && cancelChanges();
                 setMode("");
               }}
             >
@@ -97,6 +125,7 @@ export const TableLine = ({
             <button
               type="button"
               onClick={() => {
+                newChangeSelectValue(valueOpt);
                 setMode("");
               }}
             >

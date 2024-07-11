@@ -22,6 +22,7 @@ interface IProps {
   valueOpt?: any;
   array?: SelectOption[];
   heandleLineChange: (id: string, newLine: Line) => void;
+  line?: Line;
 }
 export const AddLineComponent = ({
   AddLineText,
@@ -37,6 +38,7 @@ export const AddLineComponent = ({
   setValueOpt,
   valueOpt,
   array,
+  line,
   heandleLineChange,
 }: IProps) => {
   const handleChange = (
@@ -72,6 +74,9 @@ export const AddLineComponent = ({
                 <MultySelect
                   multiple
                   onChange={(o) => {
+                    console.log(o);
+
+                    // heandleLineChange(o)
                     setValueOpt(o);
                   }}
                   options={array}

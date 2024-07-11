@@ -1,6 +1,5 @@
 import { Dispatch, useEffect, useState } from "react";
 
-
 import { MSTTable, TableColumn } from "../MSTtable";
 
 import { EventProper } from "../loction";
@@ -78,7 +77,7 @@ interface ValueSelect {
 export const ViewUsers = ({ setOptions, options }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [valueSelect, setValueSelect] = useState<ValueSelect>({});
-  const [valueOpt, setValueOpt] = useState<SelectOption[]>([array[0]]);
+  const [valueOpt, setValueOpt] = useState<SelectOption[]>([]);
 
   const heandleLineChange = (_id: string, obj: object) => {
     const updatedOptions = options.map((opt) => {
@@ -89,6 +88,7 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
     });
 
     setOptions(updatedOptions);
+    setValueOpt([]);
   };
   const handleDelete = (id: string) => {
     const delRow = options.filter((row) => {
