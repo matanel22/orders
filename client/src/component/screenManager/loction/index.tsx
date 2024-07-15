@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MSTTable, TableColumn } from "../MSTtable";
 
 import React, { Dispatch } from "react";
-import DataTable from "../tableRow";
+import { useEvent } from "../events/EventContext";
+
 
 export interface EventProper {
   id: string;
@@ -36,28 +37,12 @@ export interface IPropsEventLoc {
 
 export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
   const [searchValue, setSearchValue] = useState("");
-  const heandleLineChange = (_id: string, obj: object) => {
-    const updatedOptions = options.map((opt) => {
-      if (opt.id === _id) {
-        return { ...opt, ...obj };
-      }
-      return opt;
-    });
-    setOptions(updatedOptions);
-  };
-  const handleDelete = (id: string) => {
-    const delRow = options.filter((row) => {
-      return row.id !== id;
-    });
-    setOptions(delRow);
-  };
-  const heandleAddLine = (newName: string) => {
-    const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  const { handleLineChange, handleDelete, handleAddLine,saveOriginalState,cancelChanges } = useEvent();
 
-    const newObj = { name: newName, id: uniqueId, comments: "" };
+  useEffect(() => {
+    saveOriginalState();
+  }, []);
 
-    setOptions((prev) => [...prev, newObj]);
-  };
   return (
     <MSTTable
       textButton={"הוספת מיקום אירוע"}
@@ -65,10 +50,12 @@ export const ViewLoction = ({ options, setOptions }: IPropsEventLoc) => {
       tableHeadRow={LoctionTableRow}
       lines={options}
       editData={editLoction}
-      heandleLineChange={heandleLineChange}
+      heandleLineChange={handleLineChange}
       handleDelete={handleDelete}
-      handleAddLine={heandleAddLine}
+      handleAddLine={handleAddLine}
       searchValue={searchValue}
+      saveOriginalState={saveOriginalState}
+      cancelChanges={cancelChanges}
     >
       <input
         value={searchValue}

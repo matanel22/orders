@@ -1,5 +1,5 @@
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Controller, useController } from "react-hook-form";
 // import { Error } from "../Error";
 import { InputNumber, InputNumberProps } from "./InputNumber";
 import { Error } from "../hookController/Error";
@@ -18,15 +18,21 @@ export const InputNumberField = ({
   defaultValue,
   prefix,
   suffix,
+  value,
   ...props
 }: Props) => {
+  const {
+    field: { onBlur, onChange, ref, value: controlValue },
+  } = useController({
+    name,
+    rules: { validate },
+    defaultValue: defaultValue || value,
+  });
+
+  
   return (
     <div className="flex flex-col">
-      <Controller
-        name={name}
-        defaultValue={defaultValue}
-        rules={{ validate }}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
+     
           <InputNumber
             {...props}
             inputRef={ref}
@@ -34,11 +40,12 @@ export const InputNumberField = ({
             suffix={suffix}
             prefix={prefix}
             onBlur={onBlur}
-            value={value}
+            value={controlValue ?? ""}
+
             onChange={(value) => onChange(value)}
           />
-        )}
-      />
+        
+      
 
       <Error name={name} />
     </div>

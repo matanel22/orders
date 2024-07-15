@@ -1,33 +1,26 @@
 import React, { useState } from "react";
 
 import OrderDeteils from "./OrderDeteils";
-import { AppBar } from "@mui/material";
+
 import {
   ButtonUi,
-  DefultContainer,
+
   HeaderWarper,
-  SearchOrder,
+
 } from "../style/tableOrders.style";
-import Card from "../Cards";
+
 import { DefaultContainer } from "../../defultContainer";
 import SearchComponent from "../header/search";
-import { ResultItem, ResultsList } from "../header/search/style.index";
+
 import AppForm, {
-  FormInputs,
+
   FormOptions,
-  Items,
+
 } from "../formIndex/hookController";
 import { useNavigate } from "react-router-dom";
-import { ALL_ORDERS } from "../ArrData";
+
 import { TableColumn } from "../screenManager/MSTtable";
 
-// name: string;
-// eventType: string;
-// locationType: string;
-// items: IPropsItems[];
-// statusId: { id: string; name: string };
-// orderDate?: Date;
-// orderTime?: string;
 export const ORDERS_FOOD: TableColumn[] = [
   {
     label: "שם הזמנה",
@@ -98,7 +91,7 @@ const AllOrders = ({ options, setOptions }: FormOptions) => {
         options={options}
         setOptions={setOptions}
         handleDelete={handleDelete}
-        heandleLineChange={heandleLineChange}
+        handleLineChange={heandleLineChange}
       />
     </DefaultContainer>
   );

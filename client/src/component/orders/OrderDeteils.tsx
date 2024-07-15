@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import jsonData from "../jsonData/data.json";
+
 
 import { IPropsAdddNewOrder, OrderIProps } from "../intarface";
 
@@ -8,7 +8,7 @@ import SearchComponent from "../header/search";
 
 import { ModalDegine } from "./modal";
 
-import DeteilsCard from "../Cards/DetailsCard";
+import DeteilsCard from "./DetailsCard";
 import styled from "styled-components";
 import { FormOptions } from "../formIndex/hookController";
 import { ORDERS_FOOD } from ".";
@@ -18,7 +18,7 @@ const OrderDeteils = ({
   options,
   setOptions,
   handleDelete,
-  heandleLineChange,
+  handleLineChange,
   handleAddLine,
 }: FormOptions) => {
   return (
@@ -38,7 +38,7 @@ const OrderDeteils = ({
           >
             <DeteilsCard
               handleAddLine={handleAddLine}
-              heandleLineChange={heandleLineChange}
+              heandleLineChange={handleLineChange}
               handleDelete={handleDelete}
               tableHeadRow={ORDERS_FOOD}
               line={order}

@@ -18,6 +18,8 @@ interface TableLineProps {
   valueOpt?: any;
   array?: SelectOption[];
   children?: ReactNode;
+  saveOriginalState?: () => void;
+  cancelChanges?: () => void;
 }
 
 export const TableLine = ({
@@ -33,8 +35,34 @@ export const TableLine = ({
   setValueOpt,
   valueOpt,
   array,
+  saveOriginalState,
+  cancelChanges,
 }: TableLineProps) => {
   const [mode, setMode] = useState<string | null>("");
+  const newChangeSelectValue = (newValue: any) => {
+    const newSelected = Array.isArray(newValue)
+      ? newValue.map((newVal) => {
+          return newVal.label;
+        })
+      : "";
+
+    editData.map((field: any) => {
+      if (field.edit === "multySelect") {
+        const newLine = { ...line, [field.name]: newSelected };
+
+        heandleLineChange(line.id, newLine);
+      }
+    });
+    setValueOpt([]);
+  };
+  const changeOption = (line: Line) => {
+    const columns = line.permissions.map((value: any) => ({
+      label: value,
+      value: value,
+    }));
+
+    setValueOpt(columns);
+  };
 
   return (
     <tr>
@@ -82,6 +110,7 @@ export const TableLine = ({
             <button
               type="button"
               onClick={() => {
+                cancelChanges && cancelChanges();
                 setMode("");
               }}
             >
@@ -92,6 +121,7 @@ export const TableLine = ({
             <button
               type="button"
               onClick={() => {
+                newChangeSelectValue(valueOpt);
                 setMode("");
               }}
             >
@@ -108,6 +138,7 @@ export const TableLine = ({
             variable="FULL"
             width=""
             onClick={() => {
+              changeOption(line);
               setMode("edit");
             }}
             text="עדכן"

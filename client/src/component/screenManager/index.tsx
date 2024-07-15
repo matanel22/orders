@@ -3,10 +3,11 @@ import { DefaultContainer } from "../../defultContainer";
 import { ViewItems } from "./items";
 import { ViewEvent } from "./events";
 import { ViewLoction } from "./loction";
-import { Route, useNavigate, useParams } from "react-router-dom";
-import { Items, EventType, LoctionType } from "../formIndex/hookController";
+
+import { Items,LocationType, EventType } from "../ArrData";
 import styled from "styled-components";
 import { ViewUsers } from "./users";
+import { EventProvider } from "./events/EventContext";
 
 export interface IPropsUsers {
   id: string;
@@ -53,7 +54,7 @@ export const ScreenManager = () => {
   const [currentView, setCurrentView] = useState<Views | null>(null);
   const [allItems, setAllItems] = useState(Items);
   const [allEvent, setAllEvent] = useState(EventType);
-  const [allLoction, setAllLoction] = useState(LoctionType);
+  const [allLoction, setAllLoction] = useState(LocationType);
   const [allUsers, setAllUsers] = useState(people);
 
   const changeView = (view: Views) => {
@@ -86,6 +87,7 @@ export const ScreenManager = () => {
         </StyledButton>
 
         {currentView === Views.ITEMS && (
+          
           <ViewItems
             setOptions={setAllItems}
             options={allItems}
@@ -94,10 +96,16 @@ export const ScreenManager = () => {
           />
         )}
         {currentView === Views.VIEW_LOCTION && (
+            <EventProvider options={allLoction} setOptions={setAllLoction}>
           <ViewLoction options={allLoction} setOptions={setAllLoction} />
+          </EventProvider>
         )}
         {currentView === Views.VIEW_EVENT_TYPE && (
+            <EventProvider options={allEvent} setOptions={setAllEvent}>
+
           <ViewEvent options={allEvent} setOptions={setAllEvent} />
+          </EventProvider>
+
         )}
         {currentView === Views.VIEW_Users && (
           <ViewUsers options={allUsers} setOptions={setAllUsers} />

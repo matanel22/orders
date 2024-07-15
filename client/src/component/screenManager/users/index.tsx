@@ -1,8 +1,7 @@
 import { Dispatch, useEffect, useState } from "react";
-import { IPropsItems, Items } from "../../formIndex/hookController";
 
 import { MSTTable, TableColumn } from "../MSTtable";
-import DataTable from "../tableRow";
+
 import { EventProper } from "../loction";
 import { IPropsUsers } from "..";
 import { MultySelect, SelectOption } from "../MSTtable/fields/MultySelect";
@@ -78,8 +77,10 @@ interface ValueSelect {
 export const ViewUsers = ({ setOptions, options }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [valueSelect, setValueSelect] = useState<ValueSelect>({});
-  const [valueOpt, setValueOpt] = useState<SelectOption[]>([array[0]]);
-
+  const [valueOpt, setValueOpt] = useState<SelectOption[]>([]);
+  useEffect(() => {
+    console.log("valueOpt", valueOpt);
+  }, [valueOpt]);
   const heandleLineChange = (_id: string, obj: object) => {
     const updatedOptions = options.map((opt) => {
       if (opt.id === _id) {
@@ -89,6 +90,7 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
     });
 
     setOptions(updatedOptions);
+    setValueOpt([]);
   };
   const handleDelete = (id: string) => {
     const delRow = options.filter((row) => {
@@ -104,6 +106,7 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
       permissions: valueOpt.map((val) => val.label),
     };
     setOptions((prev) => [...prev, newObj]);
+
     setValueOpt([]);
   };
 

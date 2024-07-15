@@ -14,7 +14,7 @@ export const ModalDegine = ({ children, onClose, isOpen }: IProps) => {
       <ModalContainer>
         <Header>Modal Title</Header>
         <Content>{children}</Content>
-        <CloseButton onClick={onClose}>Close</CloseButton>
+        <CloseButton onClick={onClose}>סגור</CloseButton>
       </ModalContainer>
     </Overlay>
   );

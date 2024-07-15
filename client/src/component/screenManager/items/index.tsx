@@ -1,12 +1,12 @@
 import { Dispatch, useEffect, useState } from "react";
-import { IPropsItems, Items } from "../../formIndex/hookController";
+import { IPropsItems } from "../../formIndex/hookController";
 
 import { MSTTable, TableColumn } from "../MSTtable";
-import DataTable from "../tableRow";
+
 import { EventProper } from "../loction";
 
 interface IProps {
-  setOptions: Dispatch<React.SetStateAction<IPropsItems[]>>;
+  setOptions: any;
   options: IPropsItems[];
   allLoction: EventProper[];
   allEvent: EventProper[];
@@ -53,7 +53,6 @@ const editItems: ArrayItem[] = [
   {
     table: "items",
     name: "loctionTypeId",
-
     edit: "select",
     options: [],
 
@@ -77,7 +76,7 @@ export const ViewItems = ({
     editItems[2].options = allLoction;
     const _options = options.map((opt) => {
       const _loctionTypeId = allLoction.find((loc) => {
-        return loc.id === opt.loctionTypeId;
+        return loc.id === opt.locationTypeId;
       });
       const _eventTypeId = allEvent.find((eve) => eve.id === opt.eventTypeId);
       return {
@@ -111,7 +110,7 @@ export const ViewItems = ({
     const uniqueId = `id-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
 
     const newObj = { ...obj, id: uniqueId };
-    setOptions((prev) => [...prev, newObj]);
+    setOptions((prev:any) => [...prev, newObj]);
   };
 
   return (

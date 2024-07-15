@@ -53,8 +53,6 @@ export const MultySelect = ({
   };
 
   useEffect(() => {
-    console.log(value);
-
     if (isOpen) setIsIndex(0);
   }, [isOpen, value]);
   return (
