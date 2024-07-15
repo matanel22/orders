@@ -55,14 +55,15 @@ export const TableLine = ({
     });
     setValueOpt([]);
   };
-  useEffect(() => {
+  const changeOption = (line: Line) => {
     const columns = line.permissions.map((value: any) => ({
       label: value,
       value: value,
     }));
 
     setValueOpt(columns);
-  }, [line]);
+  };
+
   return (
     <tr>
       {mode === "" ? (
@@ -101,11 +102,6 @@ export const TableLine = ({
                   }}
                   options={array}
                   value={valueOpt}
-                  // changeSelectValue={(newValue: string[] | undefined) => {
-                  //   const newLine = { ...line, [field.name]: newValue };
-
-                  //   heandleLineChange(line.id, newLine);
-                  // }}
                 />
               )}
             </React.Fragment>
@@ -142,6 +138,7 @@ export const TableLine = ({
             variable="FULL"
             width=""
             onClick={() => {
+              changeOption(line);
               setMode("edit");
             }}
             text="עדכן"

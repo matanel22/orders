@@ -20,7 +20,6 @@ type SingleSelectProps = {
 };
 
 export type SelectProps = {
-  changeSelectValue?: (value: string[] | undefined) => void;
   options?: SelectOption[];
 } & (SingleSelectProps | MultyoleSelectProps);
 
@@ -29,7 +28,6 @@ export const MultySelect = ({
   multiple,
   value,
   options,
-  changeSelectValue,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isIndex, setIsIndex] = useState(0);

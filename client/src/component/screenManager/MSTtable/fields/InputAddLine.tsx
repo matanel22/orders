@@ -74,7 +74,7 @@ export const AddLineComponent = ({
                 <MultySelect
                   multiple
                   onChange={(o) => {
-                    console.log(o);
+                    console.log("valueOpt", o);
 
                     // heandleLineChange(o)
                     setValueOpt(o);

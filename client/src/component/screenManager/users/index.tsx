@@ -78,7 +78,9 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [valueSelect, setValueSelect] = useState<ValueSelect>({});
   const [valueOpt, setValueOpt] = useState<SelectOption[]>([]);
-
+  useEffect(() => {
+    console.log("valueOpt", valueOpt);
+  }, [valueOpt]);
   const heandleLineChange = (_id: string, obj: object) => {
     const updatedOptions = options.map((opt) => {
       if (opt.id === _id) {
@@ -104,6 +106,7 @@ export const ViewUsers = ({ setOptions, options }: IProps) => {
       permissions: valueOpt.map((val) => val.label),
     };
     setOptions((prev) => [...prev, newObj]);
+
     setValueOpt([]);
   };
 
